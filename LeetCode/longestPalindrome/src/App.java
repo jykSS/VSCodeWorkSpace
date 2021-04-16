@@ -9,7 +9,7 @@
  */
 public class App {
     public static void main(String[] args) throws Exception {
-        String s = "abcba";
+        String s = "abbacca";
         s = longestPalindrome(s);
         System.out.println(s);
     }
