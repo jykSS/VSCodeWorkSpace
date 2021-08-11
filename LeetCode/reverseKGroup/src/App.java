@@ -5,6 +5,7 @@ import java.util.Stack;
  */
 public class App {
     public static void main(String[] args) throws Exception {
+        Set<Integer> set= new Set<Integer>();
         System.out.println("Hello, World!");
     }
 
@@ -12,7 +13,6 @@ public class App {
         if (head == null || head.next == null) {
             return head;
         }
-        Stack<>
         return null;
     }
 }
