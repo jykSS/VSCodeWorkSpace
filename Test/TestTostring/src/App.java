@@ -1,11 +1,15 @@
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class App {
     public static void main(String[] args) throws Exception {
         // List<String> ss = List.of("3","33","3333","3333");
         // System.out.println(ss.toString());
         String s = "abcdaefgh";
-        System.out.println(lengthOfLongestSubstring(s));
+        Map<String,Boolean> arryMap = new HashMap<>();
+        System.out.println(arryMap.size());
+        // System.out.println(lengthOfLongestSubstring(s));
     }
     public static int lengthOfLongestSubstring(String s) {
         int[] last = new int[128];
