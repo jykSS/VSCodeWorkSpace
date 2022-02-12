@@ -1,0 +1,20 @@
+@echo off
+chcp 65001
+for  %%s in (*.jar) do ( 
+   echo %%~ns 
+   git branch -D %%~ns 
+   echo 将变更情况提交到远程分支：git push origin %%~ns
+   git push origin --delete %%~ns 
+)
+创建远程分支
+@echo off
+chcp 65001
+for  %%s in (*.jar) do ( 
+   git switch -c %%~ns 
+   git rm -rf .
+   echo %%~ns > %%~ns.txt
+   git add %%~ns.txt
+   git commit -m "提交%%~ns分支"
+   git push origin %%~ns 
+   git switch master
+)
