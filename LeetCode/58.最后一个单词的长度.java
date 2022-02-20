@@ -7,13 +7,7 @@
 // @lc code=start
 class Solution {
     public int lengthOfLastWord(String s) {
-        s = s.trim();
-        String[] ss = s.split(" ");
-        if (ss.length > 0) {
-            return ss[ss.length - 1].length();
-        } else {
-            return 0;
-        }
+        return s.trim().length() - s.trim().lastIndexOf(" ") - 1;
     }
 }
 // @lc code=end
