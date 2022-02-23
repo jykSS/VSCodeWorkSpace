@@ -6,22 +6,32 @@ from email.header import Header
 import random
 import datetime
 import calendar
+import yaml
 
+# 运行前操作 导入PyYaml包 修改yaml文件 因为端口原因 推荐163邮箱
+# pip3 install PyYaml
+
+
+def useConfig():
+    path ='./config.yaml'
+    with open(path, 'r', encoding='utf-8') as doc:
+        content = yaml.load(doc, Loader=yaml.Loader)
+        print(content)
+        return content
 
 def sendEmail(subject):
-    sender = '13054511186@163.com'
+    yaml_reader = useConfig()
+    sender = yaml_reader['sender']
     # 收件人需要改一下
-    receivers = ['1010158370@qq.com']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    receivers = yaml_reader['receivers']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
     # JHMODUBIERVVCFLO
-    mail_host = "smtp.163.com"  # 设置服务器
-    mail_user = "13054511186@163.com"  # 用户名
-    mail_pass = "JHMODUBIERVVCFLO"  # 口令
-
-#-----------------------以上需要改---------------------------------------#
+    mail_host = yaml_reader['mail_host']  # 设置服务器
+    mail_user = yaml_reader['mail_user']  # 用户名
+    mail_pass = yaml_reader['mail_pass']  # 口令
 
     message = MIMEText(subject, 'plain', 'utf-8')
-    message['From'] = Header(subject, 'utf-8')
+    message['From'] = Header(yaml_reader['sender'], 'utf-8')
     message['To'] = Header(subject, 'utf-8')
 
     # subject = 'autoSign诺明自动打卡成功'
@@ -48,11 +58,6 @@ headers = {
     'Accept-Encoding': 'gzip, deflate, br',
 }
 
-params = (
-    #-----------------------这需要改成自己token---------------------#
-    ('token', '88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134'),
-)
-
 data = {
     'altitude': '0',
     'docemp': '1C7C8699-1DA1-40E7-A420-20EC12B236A5',
@@ -67,11 +72,15 @@ result = 0
 
 
 def autoSign():
+    yaml_reader = useConfig()
+    params = (
+    #-----------------------这需要改成自己token---------------------#
+    ('token', yaml_reader['token']),)
     global result
+    print("当前token",yaml_reader['token'])
     # 睡20秒
     time.sleep(20)
-    subject = requests.post('https://bj.psaas.cn/ess/app/tc/save',
-                            headers=headers, params=params, data=data)
+    subject = requests.post('https://bj.psaas.cn/ess/app/tc/save',headers=headers, params=params, data=data)
     print(subject.text)
     result = subject.status_code
 
@@ -104,6 +113,10 @@ while True:
             else:
                 sendEmail("autoSign诺明自动打卡失败")
                 result = 0
+
+
+
+
 
 
 # NB. Original query string below. It seems impossible to parse and
