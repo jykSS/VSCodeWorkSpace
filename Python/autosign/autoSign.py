@@ -10,6 +10,9 @@ import yaml
 
 # 运行前操作 导入PyYaml包 修改yaml文件 因为端口原因 推荐163邮箱
 # pip3 install PyYaml
+# yaml文件和python文件放同一目录下
+# 后台运行 
+# nohup python3 -u autoSign.py > autoSign.log 2>&1 &
 
 
 def useConfig():
