@@ -101,7 +101,7 @@ while True:
         print(calendar.weekday(year, month, day))
         currentday = calendar.weekday(year, month, day)
         # 判断当天是否为周末
-        if currentday > 5:
+        if currentday > 4:
             print("当天为周末不打卡")
         else:
             print("当天为工作日需要打卡")
