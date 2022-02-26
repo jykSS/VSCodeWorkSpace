@@ -8,7 +8,9 @@ mail_host: "smtp.163.com"
 mail_user: "13054511186@163.com"
 #邮箱密钥
 mail_pass: "JHMODUBIERVVCFLO"
+#server酱的网址
+serverjUrl: 'https://sc.ftqq.com/{}.send'
 #可随时添加用户
 Object:
-        - {name: jyk,token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134,receiver: 1010158370@qq.com}
+        - {name: jyk,token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134,receiver: 1010158370@qq.com,SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6}
         - {name: ly,token: 53BDDCF8-B64A-4C61-93C2-67A19E3744CE,receiver: l839401463@126.com}

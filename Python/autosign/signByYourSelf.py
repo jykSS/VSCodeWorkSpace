@@ -4,6 +4,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
 import yaml
+import json
 
 # 运行前操作 导入PyYaml包 修改yaml文件 因为端口原因 推荐163邮箱
 # pip3 install PyYaml
@@ -77,20 +78,24 @@ def autoSign(token):
     ('token', token),)
     global result
     print("当前token",token)
-    # 睡20秒
-    time.sleep(20)
     subject = requests.post('https://bj.psaas.cn/ess/app/tc/save',headers=headers, params=params, data=data)
     print(subject.text)
-    result = subject.status_code
+    obj=json.loads(subject.text)
+    result = int(obj['code'])
+    if result==2:  
+        print(result)
 
 yourName = input("请输入你的名字:")
 yaml_reader = useConfig()
-tokens = yaml_reader['Object']
-for token in tokens:
-    if token['name']==yourName:
-        for num in range(0, 3):  # 打卡三次
-            autoSign(token['token'])
-        if result == 200:
-            print("打卡成功")
-        else:
-            print("打卡失败")
+params = yaml_reader['Object']
+for param in params:
+    if param['name']==yourName:
+        autoSign(param['token'])
+    if 'SendKey' in param:
+        key = param['SendKey']
+        title = param['name']+"的autoSign诺明自动打卡成功"
+        payload = {
+            'text': title
+        }
+        url = 'https://sc.ftqq.com/{}.send'.format(key)
+        requests.post(url, params=payload)

@@ -21,11 +21,11 @@ def useConfig():
     path ='./config.yaml'
     with open(path, 'r', encoding='utf-8') as doc:
         content = yaml.load(doc, Loader=yaml.Loader)
-        print(content)
         return content
 
-def sendEmail(subject,receiver):
+def sendEmail(subject,param):
     yaml_reader = useConfig()
+    receiver=param['receiver']
     sender = yaml_reader['sender']
     # 收件人需要改一下
     receivers = [receiver] # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
@@ -50,6 +50,14 @@ def sendEmail(subject,receiver):
         print("发送邮件成功")
     except smtplib.SMTPException:
         print("发送邮件失败")
+    if 'SendKey' in param:
+        key = param['SendKey']
+        title = subject
+        payload = {
+            'text': title
+        }
+        url = yaml_reader['serverjUrl'].format(key)
+        requests.post(url, params=payload)
         
 result = 0
 # 自动打卡
@@ -85,7 +93,8 @@ def autoSign(token):
     time.sleep(x)
     subject = requests.post('https://bj.psaas.cn/ess/app/tc/save',headers=headers, params=params, data=data)
     print(subject.text)
-    result = subject.code
+    obj=json.loads(subject.text)
+    result = int(obj['code'])
 
 
 while True:
@@ -117,11 +126,11 @@ while True:
                         time.sleep(x)
                         for num in range(0, 3):  # 打卡三次
                             autoSign(param['token'])
-                        if result == 200:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡成功",param['receiver'])
+                        if result == 2:
+                            sendEmail(param['name']+"的autoSign诺明自动打卡成功",param)
                             result = 0
                         else:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡失败",param['receiver'])
+                            sendEmail(param['name']+"的autoSign诺明自动打卡失败",param)
                             result = 0
             else:
                 print("当天为周末不需要打卡")
@@ -148,11 +157,11 @@ while True:
                         time.sleep(x)
                         for num in range(0, 3):  # 打卡三次
                             autoSign(param['token'])
-                        if result == 200:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡成功---节假日接口损坏",param['receiver'])
+                        if result == 2:
+                            sendEmail(param['name']+"的autoSign诺明自动打卡成功---节假日接口损坏",param)
                             result = 0
                         else:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡失败---节假日接口损坏",param['receiver'])
+                            sendEmail(param['name']+"的autoSign诺明自动打卡失败---节假日接口损坏",param)
                             result = 0
 
 
