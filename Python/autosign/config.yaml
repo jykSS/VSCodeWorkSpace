@@ -1,5 +1,5 @@
-# 用户token 抓包获取
-token: '88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134'
+#节假日apikey
+apikey: '0a2a394de4ebd3a9abc16358b65c4703'
 #163的邮箱
 sender: '13054511186@163.com'
 #邮箱服务器
@@ -8,6 +8,7 @@ mail_host: "smtp.163.com"
 mail_user: "13054511186@163.com"
 #邮箱密钥
 mail_pass: "JHMODUBIERVVCFLO"
-#接收人
-receivers:
-        - 1010158370@qq.com
+#可随时添加用户
+Object:
+        - {name: jyk,token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134,receiver: 1010158370@qq.com}
+        - {name: ly,token: 53BDDCF8-B64A-4C61-93C2-67A19E3744CE,receiver: l839401463@126.com}
