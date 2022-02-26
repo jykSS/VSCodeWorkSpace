@@ -123,6 +123,8 @@ while True:
                         else:
                             sendEmail(param['name']+"的autoSign诺明自动打卡失败",param['receiver'])
                             result = 0
+            else:
+                print("当天为周末不需要打卡")
         else:
             #节假日api接口失效
             # 获取当天日期值
@@ -136,9 +138,9 @@ while True:
             currentday = calendar.weekday(year, month, day)
             # 判断当天是否为周末
             if currentday > 4:
-                print("当天为周末不打卡")
+                print("当天为周末不打卡---节假日接口损坏")
             else:
-                print("当天为工作日需要打卡")
+                print("当天为工作日需要打卡---节假日接口损坏")
                 params = yaml_reader['Object']
                 for param in params:
                         # 随机睡一会儿
@@ -147,10 +149,10 @@ while True:
                         for num in range(0, 3):  # 打卡三次
                             autoSign(param['token'])
                         if result == 200:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡成功",param['receiver'])
+                            sendEmail(param['name']+"的autoSign诺明自动打卡成功---节假日接口损坏",param['receiver'])
                             result = 0
                         else:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡失败",param['receiver'])
+                            sendEmail(param['name']+"的autoSign诺明自动打卡失败---节假日接口损坏",param['receiver'])
                             result = 0
 
 
