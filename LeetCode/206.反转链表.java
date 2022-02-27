@@ -27,6 +27,9 @@ class Solution {
         ListNode cur = head;
         ListNode dummyNode = new ListNode(0);
         dummyNode.next = cur;
+        // 1-2-3-4-5
+        // 2-1-3-4-5
+        // 把next进行提前
         while (cur.next != null) {
             ListNode temp = cur.next;
             cur.next = temp.next;
