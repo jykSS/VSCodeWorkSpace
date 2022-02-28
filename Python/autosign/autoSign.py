@@ -99,7 +99,7 @@ def autoSign(token):
 
 while True:
     time_now = time.strftime("%H:%M:%S", time.localtime())  # 刷新
-    if time_now == "08:20:05" or time_now == "17:40:10":  # 此处设置每天定时的时间
+    if time_now == "08:25:05" or time_now == "17:32:10":  # 此处设置每天定时的时间
         #网页获取节假日
         # 获取当前时间 格式20190225
         yaml_reader = useConfig()
@@ -122,7 +122,7 @@ while True:
                 params = yaml_reader['Object']
                 for param in params:
                         # 随机睡一会儿
-                        x = random.randint(1, 500)
+                        x = random.randint(1, 300)
                         time.sleep(x)
                         for num in range(0, 3):  # 打卡三次
                             autoSign(param['token'])
