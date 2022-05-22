@@ -21,26 +21,26 @@ import java.util.List;
 class Solution {
     public void reorderList(ListNode head) {
         LinkedList<ListNode> linkList = new LinkedList<>();
-        ListNode dump = head;
-        while (dump!=null) {
-            linkList.addLast(dump);
-            dump=dump.next;
+        while (head != null) {
+            linkList.addLast(head);
+            head = head.next;
         }
         Integer index = 0;
-        dump=new ListNode(0);
-        head = dump ; 
-        while (linkList.size()>0) {
-            if ((index & 1)==1) {
-                //奇数
-                dump.next=linkList.removeFirst();
-                dump= dump.next;
-            }else{
+        ListNode dump = new ListNode(0);
+        head = dump;
+        while (linkList.size() > 0) {
+            if ((index & 1) == 0) {
                 //偶数
-                dump.next=linkList.removeLast();
-                dump= dump.next;
+                dump.next = linkList.removeFirst();
+                dump = dump.next;
+            } else {
+                //奇数
+                dump.next = linkList.removeLast();
+                dump = dump.next;
             }
             index++;
         }
+        dump.next=null;
         head = head.next;
     }
 }
