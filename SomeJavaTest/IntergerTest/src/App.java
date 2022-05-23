@@ -17,16 +17,18 @@ public class App {
         // String s="%%djasiojdioas";
         // int a = s.indexOf("%");
         // System.out.println(a);
-        // Integer X =null;
-        // System.out.println(Objects.isNull(X));
+        Integer X =null;
+        Integer Y =3;
+         Y+=X==null?0:X;
+        System.out.println(Y);
         // int[] nums = {10,9,2,5,3,7,101,3};
         // int lengthOfLIS = lengthOfLIS(nums);
         // System.out.println(lengthOfLIS);
-        ListNode listNode = new ListNode(1);
-        listNode.next=new ListNode(2);
-        listNode.next.next=new ListNode(3);
-        listNode.next.next.next=new ListNode(4);
-        reorderList(listNode);
+        // ListNode listNode = new ListNode(1);
+        // listNode.next=new ListNode(2);
+        // listNode.next.next=new ListNode(3);
+        // listNode.next.next.next=new ListNode(4);
+        // reorderList(listNode);
     }
 
     public static class ListNode {
