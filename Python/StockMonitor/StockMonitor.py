@@ -3,10 +3,7 @@ import requests
 import yaml
 import json
 import http.client, urllib
-import calendar
-import datetime
 
-sendMsgTime=0
 
 def useConfig():
     path ='./StockConfig.yaml'
@@ -14,23 +11,28 @@ def useConfig():
         content = yaml.load(doc, Loader=yaml.Loader)
         return content
 
-def sendMsg(subject):
-    # 最多发三次
-    if sendMsgTime>2:
-        return 
-    else:
-        yaml_reader = useConfig()
-        params = yaml_reader['SendMsg']
-        sendMsgTime+=1
-        for param in params:
-            if 'SendKey' in param:
-                key = param['SendKey']
-                title = subject
-                payload = {
-                    'text': title
-                }
-                url = yaml_reader['serverjUrl'].format(key)
-                requests.post(url, params=payload)
+def sendMsg(message):
+    yaml_reader = useConfig()
+    params = yaml_reader['SendMsg']
+    for param in params:
+        if 'SendKey' in param:
+            key = param['SendKey']
+            token=yaml_reader['sendToken']
+            headers = {
+                'token': token,
+            }
+            data = {
+                'message': message,
+                'userId': key,
+            }
+            url = yaml_reader['serverjUrl']
+            requests.post(url, headers=headers, data=data)
+
+def sendMsgFilter(message,times):
+    if times<4:
+        sendMsg(message)
+    
+
 
 def getrealtimedata(share):
     data = tushare.get_realtime_quotes(share.code)
@@ -75,28 +77,31 @@ class Share():
         self.code = code
         self.buy = buy
         self.sale = sale
+        self.time=0
 
 def main(sharelist):
     for share in sharelist:
         sss=getrealtimedata(share)
         if sss.price <=sss.buy:
-            sendMsg('到达底部，赶紧买入！'+sss.describe)
+            share.time=share.time+1
+            sendMsgFilter('到达底部，赶紧买入！'+sss.describe,sss.time)
             print('到达底部，赶紧买入！'+sss.describe)
         elif sss.price >= sss.sale:
-            sendMsg('赶紧卖出。大赚了！'+sss.describe)
+            share.time=share.time+1
+            sendMsgFilter('赶紧卖出。大赚了！'+sss.describe,sss.time)
             print('赶紧卖出。大赚了！'+sss.describe)
         else:
             print('静观其变……'+sss.describe)
-            
+                      
 # 判断赌场是否开门
 isCasinoOpen=isCasinoOpen();
+yaml_reader = useConfig()
+sharelist=[]
+params = yaml_reader['Object']
+for param in params:
+    sharelist.append(Share(param['code'],param['buy'],param['sale']))
 if isCasinoOpen==0: 
     while True:
-        yaml_reader = useConfig()
-        sharelist=[]
-        params = yaml_reader['Object']
-        for param in params:
-            sharelist.append(Share(param['code'],param['buy'],param['sale']))
         main(sharelist)
         time.sleep(4)
         time_now = time.strftime("%H:%M", time.localtime())  # 刷新

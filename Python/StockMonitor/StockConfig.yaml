@@ -1,10 +1,12 @@
 #节假日apikey
 apikey: '0a2a394de4ebd3a9abc16358b65c4703'
-#server酱的网址
-serverjUrl: 'https://sc.ftqq.com/{}.send'
+#jyk_pusher地址
+serverjUrl: 'http://82.156.4.191:10010/push'
+#sendToken
+sendToken: 'jyk_pusher'
 #可随时添加用户
 Object:
         - {name: "黄河旋风",code: "600172",buy: 7.58,sale: 9.58}
         - {name: "迎驾贡酒",code: "603198",buy: 52.0,sale: 99}
 SendMsg:
-        - {name: "jyk",SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6}
+        - {name: "jyk",SendKey: JiangYanKai}
