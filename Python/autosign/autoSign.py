@@ -25,31 +25,32 @@ def useConfig():
 
 def sendEmail(subject,param):
     yaml_reader = useConfig()
-    receiver=param['receiver']
-    sender = yaml_reader['sender']
-    # 收件人需要改一下
-    receivers = [receiver] # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    if 'receiver' in param:
+        receiver=param['receiver']
+        sender = yaml_reader['sender']
+        # 收件人需要改一下
+        receivers = [receiver] # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
-    # JHMODUBIERVVCFLO
-    mail_host = yaml_reader['mail_host']  # 设置服务器
-    mail_user = yaml_reader['mail_user']  # 用户名
-    mail_pass = yaml_reader['mail_pass']  # 口令
+        # JHMODUBIERVVCFLO
+        mail_host = yaml_reader['mail_host']  # 设置服务器
+        mail_user = yaml_reader['mail_user']  # 用户名
+        mail_pass = yaml_reader['mail_pass']  # 口令
 
-    message = MIMEText(subject, 'plain', 'utf-8')
-    message['From'] = Header(yaml_reader['sender'], 'utf-8')
-    message['To'] = Header(subject, 'utf-8')
+        message = MIMEText(subject, 'plain', 'utf-8')
+        message['From'] = Header(yaml_reader['sender'], 'utf-8')
+        message['To'] = Header(subject, 'utf-8')
 
-    # subject = 'autoSign诺明自动打卡成功'
-    message['Subject'] = Header(subject, 'utf-8')
+        # subject = 'autoSign诺明自动打卡成功'
+        message['Subject'] = Header(subject, 'utf-8')
 
-    try:
-        smtpObj = smtplib.SMTP()
-        smtpObj.connect(mail_host, 25)    # 25 为 SMTP 端口号
-        smtpObj.login(mail_user, mail_pass)
-        smtpObj.sendmail(sender, receivers, message.as_string())
-        print("发送邮件成功")
-    except smtplib.SMTPException:
-        print("发送邮件失败")
+        try:
+            smtpObj = smtplib.SMTP()
+            smtpObj.connect(mail_host, 25)    # 25 为 SMTP 端口号
+            smtpObj.login(mail_user, mail_pass)
+            smtpObj.sendmail(sender, receivers, message.as_string())
+            print("发送邮件成功")
+        except smtplib.SMTPException:
+            print("发送邮件失败")
     if 'SendKey' in param:
         key = param['SendKey']
         title = subject
@@ -98,8 +99,9 @@ def autoSign(token):
 
 
 while True:
+    time.sleep(0.01)
     time_now = time.strftime("%H:%M:%S", time.localtime())  # 刷新
-    if time_now == "08:25:05" or time_now == "17:32:10":  # 此处设置每天定时的时间
+    if time_now == "08:25:05" or time_now == "17:33:10":  # 此处设置每天定时的时间
         #网页获取节假日
         # 获取当前时间 格式20190225
         yaml_reader = useConfig()
@@ -122,18 +124,25 @@ while True:
                 params = yaml_reader['Object']
                 for param in params:
                         # 随机睡一会儿
-                        x = random.randint(1, 300)
+                        x = random.randint(1, 250)
                         time.sleep(x)
-                        for num in range(0, 3):  # 打卡三次
+                        for num in range(0, 1):  # 打卡1次
                             autoSign(param['token'])
                         if result == 2:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡成功",param)
-                            result = 0
+                            time_nowH = time.strftime("%H", time.localtime())
+                            if time_nowH=="17":
+                                sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                time.sleep(8)
+                                break;
+                            else:
+                                sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                result = 0
                         else:
                             sendEmail(param['name']+"的autoSign诺明自动打卡失败",param)
                             result = 0
             else:
                 print("当天为周末不需要打卡")
+                break;
         else:
             #节假日api接口失效
             # 获取当天日期值
@@ -148,21 +157,25 @@ while True:
             # 判断当天是否为周末
             if currentday > 4:
                 print("当天为周末不打卡---节假日接口损坏")
+                break;
             else:
                 print("当天为工作日需要打卡---节假日接口损坏")
                 params = yaml_reader['Object']
                 for param in params:
                         # 随机睡一会儿
-                        x = random.randint(1, 300)
+                        x = random.randint(1, 250)
                         time.sleep(x)
-                        for num in range(0, 3):  # 打卡三次
+                        for num in range(0, 1):  # 打卡1次
                             autoSign(param['token'])
                         if result == 2:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡成功---节假日接口损坏",param)
-                            result = 0
-                        else:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡失败---节假日接口损坏",param)
-                            result = 0
+                            time_nowH = time.strftime("%H", time.localtime())
+                            if time_nowH=="17":
+                                sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                time.sleep(8)
+                                break;
+                            else:
+                                sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                result = 0
 
 
 
@@ -173,4 +186,6 @@ while True:
 # reproduce query strings 100% accurately so the one below is given
 # in case the reproduced version is not "correct".
 # response = requests.post('https://bj.psaas.cn/ess/app/tc/save?token=88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134&', headers=headers, data=data)
+# vim /etc/crontab    
+# 10 8 * * *  root  cd /opt/AutoSign &&  nohup python3 -u /opt/AutoSign/autoSign.py > /opt/AutoSign/autoSign.txt 2>&1 &
 # nohup python -u autoSign.py > autoSign.txt 2>&1 &

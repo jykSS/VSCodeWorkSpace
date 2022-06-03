@@ -1,5 +1,6 @@
 import yaml
 import requests
+import time
 
 def useConfig():
     path ='./config.yaml'
@@ -8,14 +9,10 @@ def useConfig():
         print(content)
         return content
 
-yaml_reader = useConfig()
-params = yaml_reader['Object']
-for param in params:
-    if 'SendKey' in param:
-        key = param['SendKey']
-        title = param['name']+"的autoSign诺明自动打卡成功"
-        payload = {
-            'text': title
-        }
-        url = yaml_reader['serverjUrl'].format(key)
-        requests.post(url, params=payload)
+
+while True:
+    time_nowH = time.strftime("%H", time.localtime())
+    if time_nowH=="21":
+        print("的下班autoSign诺明自动打卡成功")
+        time.sleep(8)
+        break;
