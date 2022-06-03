@@ -1,0 +1,17 @@
+version: '3.3'
+
+services:
+  wechat-work-message-push-go:
+    image: cloverzrg/wechat-work-message-push-go
+    container_name: wechat-work-message-push-go
+    environment:
+      TZ: Asia/Shanghai
+      Token: jyk_pusher
+      DefaultReceiverUserId: JiangYanKai
+      WechatWorkCorpId: ww661fdf2f73870634
+      WechatWorkCorpSecret: O6iha9BtpiNDVw7sP75B0S2GZT8XohWSqtQcgo37950
+      WechatWorkAgentId: 1000002
+    ports:
+      - 10010:80
+    restart: always
+    network_mode: bridge
