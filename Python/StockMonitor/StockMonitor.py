@@ -1,9 +1,11 @@
+from ast import Global
 import tushare,time
 import requests
 import yaml
 import json
 import http.client, urllib
 
+Global_dict=dict()
 
 def useConfig():
     path ='./StockConfig.yaml'
@@ -11,26 +13,40 @@ def useConfig():
         content = yaml.load(doc, Loader=yaml.Loader)
         return content
 
-def sendMsg(message):
+def sendMsg(message,push):
     yaml_reader = useConfig()
     params = yaml_reader['SendMsg']
     for param in params:
         if 'SendKey' in param:
             key = param['SendKey']
-            token=yaml_reader['sendToken']
-            headers = {
-                'token': token,
-            }
-            data = {
-                'message': message,
-                'userId': key,
-            }
-            url = yaml_reader['serverjUrl']
-            requests.post(url, headers=headers, data=data)
+            if len(push)>0:
+                if key==push:
+                    token=yaml_reader['sendToken']
+                    headers = {
+                        'token': token,
+                    }
+                    data = {
+                        'message': message,
+                        'userId': key,
+                    }
+                    url = yaml_reader['serverjUrl']
+                    requests.post(url, headers=headers, data=data)    
+            else:
+                token=yaml_reader['sendToken']
+                headers = {
+                    'token': token,
+                }
+                data = {
+                    'message': message,
+                    'userId': key,
+                }
+                url = yaml_reader['serverjUrl']
+                requests.post(url, headers=headers, data=data)
 
-def sendMsgFilter(message,times):
-    if times<4:
-        sendMsg(message)
+def sendMsgFilter(message,timesKey,push):
+    global Global_dict
+    if Global_dict[timesKey]<4:
+        sendMsg(message,push)
     
 
 
@@ -63,11 +79,11 @@ def isCasinoOpen():
         isnotwork=newList[0]['isnotwork']
         return isnotwork
     else:
-        sendMsg('来bug了---节假日接口损坏')
+        sendMsg('来bug了---节假日接口损坏','')
         return 1
 
 class Share():
-    def __init__(self,code,buy,sale):
+    def __init__(self,code,buy,sale,push):
         self.name = ''
         self.open = ''
         self.price = ''
@@ -77,31 +93,44 @@ class Share():
         self.code = code
         self.buy = buy
         self.sale = sale
-        self.time=0
+        self.push=push
 
 def main(sharelist):
+    global Global_dict
     for share in sharelist:
         sss=getrealtimedata(share)
         if sss.price <=sss.buy:
-            share.time=share.time+1
-            sendMsgFilter('到达底部，赶紧买入！'+sss.describe,sss.time)
+            timesKey=sss.name+str(sss.buy)
+            if  timesKey in Global_dict:
+                Global_dict[timesKey]=Global_dict[timesKey]+1 
+            else:
+                Global_dict[timesKey]=1 
+            sendMsgFilter('到达底部，赶紧买入！监控价格:'+str(sss.buy)+sss.describe,timesKey,sss.push)
             print('到达底部，赶紧买入！'+sss.describe)
         elif sss.price >= sss.sale:
-            share.time=share.time+1
-            sendMsgFilter('赶紧卖出。大赚了！'+sss.describe,sss.time)
+            timesKey=sss.name+str(sss.sale)
+            if timesKey in Global_dict:
+                Global_dict[timesKey]=Global_dict[timesKey]+1 
+            else:
+                Global_dict[timesKey]=1
+            sendMsgFilter('赶紧卖出。大赚了！监控价格:'+str(sss.sale)+sss.describe,timesKey,sss.push)
             print('赶紧卖出。大赚了！'+sss.describe)
         else:
             print('静观其变……'+sss.describe)
                       
 # 判断赌场是否开门
 isCasinoOpen=isCasinoOpen();
-yaml_reader = useConfig()
-sharelist=[]
-params = yaml_reader['Object']
-for param in params:
-    sharelist.append(Share(param['code'],param['buy'],param['sale']))
+# isCasinoOpen=0;
 if isCasinoOpen==0: 
     while True:
+        yaml_reader = useConfig()
+        sharelist=[]
+        params = yaml_reader['Object']
+        for param in params:
+            if 'push' in param:  
+                sharelist.append(Share(param['code'],param['buy'],param['sale'],param['push']))
+            else:
+                sharelist.append(Share(param['code'],param['buy'],param['sale'],''))
         main(sharelist)
         time.sleep(4)
         time_now = time.strftime("%H:%M", time.localtime())  # 刷新

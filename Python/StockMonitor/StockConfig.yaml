@@ -6,7 +6,7 @@ serverjUrl: 'http://82.156.4.191:10010/push'
 sendToken: 'jyk_pusher'
 #可随时添加用户
 Object:
-        - {name: "黄河旋风",code: "600172",buy: 7.58,sale: 9.58}
+        - {name: "黄河旋风",code: "600172",buy: 7.58,sale: 7.92,push: JiangYanKai1}
         - {name: "迎驾贡酒",code: "603198",buy: 52.0,sale: 99}
 SendMsg:
         - {name: "jyk",SendKey: JiangYanKai}
