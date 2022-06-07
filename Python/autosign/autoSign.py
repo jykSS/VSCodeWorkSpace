@@ -132,17 +132,14 @@ while True:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
                                 sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
-                                time.sleep(8)
-                                break;
                             else:
                                 sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
                                 result = 0
                         else:
                             sendEmail(param['name']+"的autoSign诺明自动打卡失败",param)
-                            result = 0
+                            result = 0           
             else:
                 print("当天为周末不需要打卡")
-                break;
         else:
             #节假日api接口失效
             # 获取当天日期值
@@ -157,7 +154,6 @@ while True:
             # 判断当天是否为周末
             if currentday > 4:
                 print("当天为周末不打卡---节假日接口损坏")
-                break;
             else:
                 print("当天为工作日需要打卡---节假日接口损坏")
                 params = yaml_reader['Object']
@@ -171,8 +167,6 @@ while True:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
                                 sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
-                                time.sleep(8)
-                                break;
                             else:
                                 sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
                                 result = 0
@@ -186,6 +180,3 @@ while True:
 # reproduce query strings 100% accurately so the one below is given
 # in case the reproduced version is not "correct".
 # response = requests.post('https://bj.psaas.cn/ess/app/tc/save?token=88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134&', headers=headers, data=data)
-# vim /etc/crontab    
-# 10 8 * * *  root  cd /opt/AutoSign &&  nohup python3 -u /opt/AutoSign/autoSign.py > /opt/AutoSign/autoSign.txt 2>&1 &
-# nohup python -u autoSign.py > autoSign.txt 2>&1 &
