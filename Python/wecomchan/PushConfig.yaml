@@ -1,0 +1,6 @@
+WECOM_CID: ww661fdf2f73870634
+WECOM_AID: 1000002
+WECOM_SECRET: O6iha9BtpiNDVw7sP75B0S2GZT8XohWSqtQcgo37950
+SendKey: jyk_pusher
+SendMsg:
+        - {name: "jyk",SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6}
