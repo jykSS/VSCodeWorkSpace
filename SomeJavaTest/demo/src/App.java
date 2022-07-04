@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class App {
     public static void main(String[] args) throws Exception {
         String s="23";
@@ -21,7 +23,7 @@ public class App {
         char[] charArray = digits.toCharArray();
         List<Integer> cIntegers=new ArrayList<>();
         for (int i = 0; i < charArray.length; i++) {
-            cIntegers.add((int) charArray[i]);
+            cIntegers.add(charArray[i]-'0');
         }
         if (cIntegers.isEmpty()) {
             return list;
@@ -31,17 +33,27 @@ public class App {
         }
         return list;
     }
-    private static List<String> spand(List<String> result,Integer cInteger, Map<Integer, String> initMap) {
+    private static List<String> spand(List<String> result, Integer cInteger, Map<Integer, String> initMap) {
         String strings = initMap.get(cInteger);
         char[] charArray = strings.toCharArray();
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < charArray.length; i++) {
-            for (int j = 0; j < result.size(); j++) {
-                StringBuilder sb = new StringBuilder(result.get(i));
+        if (result.isEmpty()) {
+            for (int i = 0; i < charArray.length; i++) {
+                StringBuilder sb = new StringBuilder("");
                 sb.append(charArray[i]);
-                result.set(i, sb.toString());
+                result.add(sb.toString());
             }
+        } else {
+            List<String> list = new ArrayList<>();
+            for (int j = 0; j < result.size(); j++) {
+                for (int i = 0; i < charArray.length; i++) {
+                    StringBuilder sb = new StringBuilder(result.get(j));
+                    sb.append(charArray[i]);
+                    list.add(sb.toString());
+                }
+            }
+            result= list;
         }
+
         return result;
     }
 }
