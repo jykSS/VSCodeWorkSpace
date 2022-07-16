@@ -12,5 +12,5 @@ mail_pass: "JHMODUBIERVVCFLO"
 serverjUrl: 'https://sc.ftqq.com/{}.send'
 #可随时添加用户
 Object:
-        - {name: jyk,token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134,receiver: 1010158370@qq.com,SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6}
+        - {name: jyk,token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134,SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6}
         - {name: ly,token: CC933BD1-306B-4B0A-A816-6D0386F97088,receiver: l839401463@126.com}

@@ -1,5 +1,4 @@
 import requests
-import time
 import smtplib
 from email.mime.text import MIMEText
 from email.header import Header
@@ -19,39 +18,46 @@ def useConfig():
         content = yaml.load(doc, Loader=yaml.Loader)
         print(content)
         return content
-
-def sendEmail(subject):
+    
+def sendEmail(subject,param):
     yaml_reader = useConfig()
-    sender = yaml_reader['sender']
-    # 收件人需要改一下
-    receivers = yaml_reader['receivers']  # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
+    if 'receiver' in param:
+        receiver=param['receiver']
+        sender = yaml_reader['sender']
+        # 收件人需要改一下
+        receivers = [receiver] # 接收邮件，可设置为你的QQ邮箱或者其他邮箱
 
-    # JHMODUBIERVVCFLO
-    mail_host = yaml_reader['mail_host']  # 设置服务器
-    mail_user = yaml_reader['mail_user']  # 用户名
-    mail_pass = yaml_reader['mail_pass']  # 口令
+        # JHMODUBIERVVCFLO
+        mail_host = yaml_reader['mail_host']  # 设置服务器
+        mail_user = yaml_reader['mail_user']  # 用户名
+        mail_pass = yaml_reader['mail_pass']  # 口令
 
-    message = MIMEText(subject, 'plain', 'utf-8')
-    message['From'] = Header(yaml_reader['sender'], 'utf-8')
-    message['To'] = Header(subject, 'utf-8')
+        message = MIMEText(subject, 'plain', 'utf-8')
+        message['From'] = Header(yaml_reader['sender'], 'utf-8')
+        message['To'] = Header(subject, 'utf-8')
 
-    # subject = 'autoSign诺明自动打卡成功'
-    message['Subject'] = Header(subject, 'utf-8')
+        # subject = 'autoSign诺明自动打卡成功'
+        message['Subject'] = Header(subject, 'utf-8')
 
-    try:
-        smtpObj = smtplib.SMTP()
-        smtpObj.connect(mail_host, 25)    # 25 为 SMTP 端口号
-        smtpObj.login(mail_user, mail_pass)
-        smtpObj.sendmail(sender, receivers, message.as_string())
-        print("发送邮件成功")
-    except smtplib.SMTPException:
-        print("发送邮件失败")
-
+        try:
+            smtpObj = smtplib.SMTP()
+            smtpObj.connect(mail_host, 25)    # 25 为 SMTP 端口号
+            smtpObj.login(mail_user, mail_pass)
+            smtpObj.sendmail(sender, receivers, message.as_string())
+            print("发送邮件成功")
+        except smtplib.SMTPException:
+            print("发送邮件失败")
+    if 'SendKey' in param:
+        key = param['SendKey']
+        title = subject
+        payload = {
+            'text': title
+        }
+        url = yaml_reader['serverjUrl'].format(key)
+        requests.post(url, params=payload)
 
 result = 0
 # 自动打卡
-
-
 def autoSign(token):
     headers = {
     'User-Agent': 'psa shang dian/6.8.40 (iPhone; iOS 15.3; Scale/2.00)',
@@ -72,7 +78,6 @@ def autoSign(token):
         'location': '北京办公区',
         'longitude': '116.5341508607004',
     }
-    yaml_reader = useConfig()
     params = (
     #-----------------------这需要改成自己token---------------------#
     ('token', token),)
@@ -85,17 +90,20 @@ def autoSign(token):
     if result==2:  
         print(result)
 
-yourName = input("请输入你的名字:")
+yourName = 'jyk'
 yaml_reader = useConfig()
 params = yaml_reader['Object']
 for param in params:
     if param['name']==yourName:
         autoSign(param['token'])
-    if 'SendKey' in param:
-        key = param['SendKey']
-        title = param['name']+"的autoSign诺明自动打卡成功"
-        payload = {
-            'text': title
-        }
-        url = 'https://sc.ftqq.com/{}.send'.format(key)
-        requests.post(url, params=payload)
+        if result==2:
+            title = param['name']+"的autoSign诺明手动打卡成功"
+        else:
+            title = param['name']+"的autoSign诺明手动打卡失败,请重新检查token"
+        if 'SendKey' in param:
+            key = param['SendKey']
+            payload = {
+                'text': title
+            }
+            url = 'https://sc.ftqq.com/{}.send'.format(key)
+            requests.post(url, params=payload)
