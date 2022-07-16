@@ -10,7 +10,7 @@ app = Flask(__name__)
 # pip install flask
 # yaml文件和python文件放同一目录下
 # 后台运行 
-# nohup python3 -u signByWeb.py > autoSign.log 2>&1 &
+# nohup python3 -u signByWeb.py > signByWeb.log 2>&1 &
 
 def useConfig():
     path ='./config.yaml'
