@@ -75,6 +75,12 @@ def signByYourSelf(username):
                 requests.post(url, params=payload)
             return title
     return "请检查是否添加用户"
+@app.route('/sign/users')
+def getUserInfo():
+    # 这里面就是你想要返回给前端的值， 切记，这里只能返回字符串，如果是个json数据，你的通过json.dumps(你的json数据)
+    yaml_reader = useConfig()
+    users = yaml_reader['Object']
+    return json.dumps(users)
 
 
 if __name__ == '__main__':
