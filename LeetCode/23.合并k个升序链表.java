@@ -1,7 +1,6 @@
-import java.util.Comparator;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
-import javax.management.Query;
 
 /*
  * @lc app=leetcode.cn id=23 lang=java
@@ -22,21 +21,20 @@ import javax.management.Query;
  */
 class Solution {
     public ListNode mergeKLists(ListNode[] lists) {
-        //小根堆
-        Queue<ListNode> pqueue = new PriorityQueue<ListNode>((v1,v2)->v1.val-v2.val);
-        for (ListNode node : lists) {
-            if (node!=null) {
-                pqueue.offer(node);
+        Queue<ListNode> queue=new PriorityQueue<>((a,b)->a.val-b.val);
+        ListNode result = new ListNode(-1);
+        ListNode temp = result;
+        for (int i = 0; i < lists.length; i++) {
+            if (lists[i]!=null) {
+                queue.add(lists[i]);
             }
         }
-        ListNode result = new ListNode(0);
-        ListNode tail = result;
-        while (!pqueue.isEmpty()) {
-            ListNode minNode = pqueue.poll();
-            tail.next = minNode;
-            tail=minNode;
-            if (tail.next!=null) {
-                pqueue.offer(tail.next);
+        while (!queue.isEmpty()) {
+            ListNode listNode=queue.poll();
+            temp.next=listNode;
+            temp=temp.next;
+            if (listNode.next!=null) {
+                queue.offer(listNode.next);
             }
         }
         return result.next;

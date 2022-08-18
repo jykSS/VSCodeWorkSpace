@@ -3,7 +3,10 @@ import java.util.*;
 public class App {
     public static void main(String[] args) throws Exception {
         String s="23";
-        letterCombinations(s);
+        Map<String,String> map = new HashMap<>();
+        map.put(null, s);
+        System.out.println(map.get(null));
+        // letterCombinations(s);
     }
     public static Map<Integer,String> initMap (){
         Map<Integer,String> initMap = new HashMap<>();

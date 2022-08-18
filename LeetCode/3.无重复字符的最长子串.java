@@ -10,19 +10,19 @@ import java.util.Set;
 // @lc code=start
 class Solution {
     public int lengthOfLongestSubstring(String s) {
-        int[] last = new int[128];
-        int n = s.length();
-        int res = 0;
-        int start = 0; // 窗口开始位置
-        for(int i = 0; i < n; i++) {
-            int index = s.charAt(i);
-            start = Math.max(start, last[index]);
-            res   = Math.max(res, i - start + 1);
-            //下次遇到相同的值,就从原来这个值的下一个开始
-            last[index] = i+1;
+        int i = 0, j = 0, max = 0;
+        Set<Character> set = new HashSet<>();
+        
+        while (j < s.length()) {
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j++));
+                max = Math.max(max, set.size());
+            } else {
+                set.remove(s.charAt(i++));
+            }
         }
-
-        return res;
+        
+        return max;
     }
 }
 // @lc code=end
