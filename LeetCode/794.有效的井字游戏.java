@@ -7,6 +7,7 @@
 // @lc code=start
 class Solution {
     public boolean validTicTacToe(String[] board) {
+        
         return true;
     }
 }
