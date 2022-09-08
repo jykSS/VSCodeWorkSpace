@@ -4,6 +4,7 @@ public class App {
         int[] arr = new int[3];
         int result = Solve(arr);
         System.out.println(result);
+        // AllTimesMinToMax.max2(new int[]{3,4,5,4});
     }
 
     private static int Solve(int[] arr) {
