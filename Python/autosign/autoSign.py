@@ -127,7 +127,8 @@ while True:
                         x = random.randint(1, 250)
                         time.sleep(x)
                         for num in range(0, 1):  # 打卡1次
-                            autoSign(param['token'])
+                            if param['register']!='N':
+                                autoSign(param['token'])
                         if result == 2:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
@@ -162,7 +163,8 @@ while True:
                         x = random.randint(1, 250)
                         time.sleep(x)
                         for num in range(0, 1):  # 打卡1次
-                            autoSign(param['token'])
+                            if param['register']!='N':
+                                autoSign(param['token'])
                         if result == 2:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":

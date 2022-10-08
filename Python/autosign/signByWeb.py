@@ -18,7 +18,15 @@ def useConfig():
         content = yaml.load(doc, Loader=yaml.Loader)
         print(content)
         return content
-
+def updateConfig(updateParam):
+    path ='./config.yaml'
+    with open(path, 'r', encoding='utf-8') as doc:
+        content = yaml.load(doc, Loader=yaml.Loader)
+        for index,param in enumerate(content['Object']):
+            if param['name']==updateParam['name']:
+               content['Object'][index]=updateParam
+    with open(path, 'w', encoding='utf-8') as doc:
+        yaml.dump(content,doc)
 result = 0
 # 自动打卡
 def autoSign(token):
@@ -75,6 +83,20 @@ def signByYourSelf(username):
                 requests.post(url, params=payload)
             return title
     return "请检查是否添加用户"
+
+@app.route('/sign/update/<username>')
+def updateByYourSelf(username):
+    # 这里面就是你想要返回给前端的值， 切记，这里只能返回字符串，如果是个json数据，你的通过json.dumps(你的json数据)
+    yourName =username
+    yaml_reader = useConfig()
+    params = yaml_reader['Object']
+    for param in params:
+        if param['name']==yourName:
+            param['register']='N' if param['register']=='Y' else 'Y'
+            updateConfig(param)
+            return '修改成功'
+    return "请检查是否添加用户"
+
 @app.route('/sign/users')
 def getUserInfo():
     # 这里面就是你想要返回给前端的值， 切记，这里只能返回字符串，如果是个json数据，你的通过json.dumps(你的json数据)

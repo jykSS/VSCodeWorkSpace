@@ -1,16 +1,15 @@
-#节假日apikey
-apikey: '0a2a394de4ebd3a9abc16358b65c4703'
-#163的邮箱
-sender: '13054511186@163.com'
-#邮箱服务器
-mail_host: "smtp.163.com"
-#邮箱用户名
-mail_user: "13054511186@163.com"
-#邮箱密钥
-mail_pass: "JHMODUBIERVVCFLO"
-#server酱的网址
-serverjUrl: 'https://sc.ftqq.com/{}.send'
-#可随时添加用户
 Object:
-        - {name: jyk,token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134,SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6}
-        - {name: ly,token: CC933BD1-306B-4B0A-A816-6D0386F97088,receiver: l839401463@126.com}
+- SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6
+  name: jyk
+  register: N
+  token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134
+- name: ly
+  receiver: l839401463@126.com
+  register: Y
+  token: CC933BD1-306B-4B0A-A816-6D0386F97088
+apikey: 0a2a394de4ebd3a9abc16358b65c4703
+mail_host: smtp.163.com
+mail_pass: JHMODUBIERVVCFLO
+mail_user: 13054511186@163.com
+sender: 13054511186@163.com
+serverjUrl: https://sc.ftqq.com/{}.send
