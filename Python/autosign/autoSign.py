@@ -132,12 +132,21 @@ while True:
                         if result == 2:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
-                                sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                if param['register']=='Y':
+                                    sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                else:
+                                    sendEmail(param['name']+"正在休假,无需打卡",param)
                             else:
-                                sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                if param['register']=='Y':
+                                    sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                else:
+                                    sendEmail(param['name']+"正在休假,无需打卡",param)
                                 result = 0
                         else:
-                            sendEmail(param['name']+"的autoSign诺明自动打卡失败",param)
+                            if param['register']!='N':  
+                                sendEmail(param['name']+"的autoSign诺明自动打卡失败",param)
+                            else:
+                                sendEmail(param['name']+"正在休假,无需打卡",param)
                             result = 0           
             else:
                 print("当天为周末不需要打卡")
@@ -168,12 +177,16 @@ while True:
                         if result == 2:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
-                                sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                if param['register']=='Y':
+                                    sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                else:
+                                    sendEmail(param['name']+"正在休假,无需打卡",param)
                             else:
-                                sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                if param['register']=='Y':
+                                    sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                else:
+                                    sendEmail(param['name']+"正在休假,无需打卡",param)
                                 result = 0
-
-
 
 
 
