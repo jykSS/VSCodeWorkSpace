@@ -28,12 +28,11 @@ def sendMessage(subject,param):
         yaml_reader = useConfig()
         url = yaml_reader['wechaturl']
         payload = {
-            "userId": param['SendToken'],
-            "message": subject
+            'userId': param['SendToken'],
+            'message': subject
         }
         headers = {"token": "jyk_pusher"}
-        requests.request("POST", url, json=payload, headers=headers)
-
+        requests.request("POST", url, data=payload, headers=headers)
         
 
 def sendEmail(subject,param):
