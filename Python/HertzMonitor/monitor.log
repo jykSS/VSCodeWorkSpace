@@ -1,0 +1,2 @@
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): mikecrmlulu.mikecrm.com:80
+DEBUG:urllib3.connectionpool:http://mikecrmlulu.mikecrm.com:80 "GET /FkSR7sn HTTP/1.1" 200 1249

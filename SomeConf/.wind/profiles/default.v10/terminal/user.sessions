@@ -1,0 +1,312 @@
+[
+    {
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.group" : "Shell sessions",
+        "session.icon" : "session::cmd",
+        "session.label" : "cmd",
+        "session.protocol" : "Shell",
+        "session.system" : "cmd",
+        "session.target" : "C:/WINDOWS/system32/cmd.exe",
+        "session.uuid" : "0861197d-2fcb-49dd-91e5-9d4c33e4e3d5",
+        "window.caretStyle" : "blinking line"
+    },
+    {
+        "process.arguments" : "C:/WINDOWS/system32/cmd.exe",
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.group" : "Shell sessions",
+        "session.icon" : "session::cmd",
+        "session.label" : "admin:cmd",
+        "session.protocol" : "Shell",
+        "session.system" : "cmd",
+        "session.target" : "$(AppDir)/vendors/gsudo/gsudo.exe",
+        "session.uuid" : "bd2a7f3a-d43d-47d4-9592-3d522a597c04",
+        "window.caretStyle" : "blinking line"
+    },
+    {
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.group" : "Shell sessions",
+        "session.icon" : "session::powershell",
+        "session.label" : "powershell",
+        "session.protocol" : "Shell",
+        "session.system" : "powershell",
+        "session.target" : "C:/WINDOWS/system32/WindowsPowerShell/v1.0/powershell.exe",
+        "session.uuid" : "b99235ee-ff92-4f9d-94dd-ef0f380fe3e4",
+        "window.caretStyle" : "blinking line"
+    },
+    {
+        "process.arguments" : "C:/WINDOWS/system32/WindowsPowerShell/v1.0/powershell.exe",
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.group" : "Shell sessions",
+        "session.icon" : "session::powershell",
+        "session.label" : "admin:powershell",
+        "session.protocol" : "Shell",
+        "session.system" : "powershell",
+        "session.target" : "$(AppDir)/vendors/gsudo/gsudo.exe",
+        "session.uuid" : "44de3f08-4835-4a44-8f95-ada3281acad9",
+        "window.caretStyle" : "blinking line"
+    },
+    {
+        "process.arguments" : "~ -d Ubuntu-20.04",
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.group" : "Shell sessions",
+        "session.icon" : "session::knot-dodgerblue",
+        "session.label" : "Ubuntu-20.04",
+        "session.protocol" : "Shell",
+        "session.system" : "linux",
+        "session.target" : "C:/WINDOWS/sysnative/wsl.exe",
+        "session.uuid" : "404423c7-25a0-44b6-bb7e-6992e9ea6073"
+    },
+    {
+        "process.arguments" : "--login -i",
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.group" : "Shell sessions",
+        "session.icon" : "session::gitbash",
+        "session.label" : "gitbash",
+        "session.protocol" : "Shell",
+        "session.system" : "linux",
+        "session.target" : "C:/Program Files/Git/bin/bash.exe",
+        "session.uuid" : "e48d3b39-88f5-4ebb-87b7-a7bd7fd19cca",
+        "window.caretStyle" : "blinking line"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa+mw8W4Z9bN4iioJHd6t6oYxwWrbke0d+8Ek4cEFdW2rq8ueu6AtvLtkcVQ0kOhfV6y+mmwiU1HGzd3a2u25njjWcn76qIhCOYLOvyMeIls1L6vGGASkqEuR68B2GfhDtQtKIarjEkxOMa3WgiRrpCCMbzk8oEghf2/zXWKiKdgGomnfg+cYJanHiO5kedMNqjE49drhtf4Du8ZfSibo3e53kS7kq3ACmYI5sQarqB9v",
+        "session.group" : "cfps",
+        "session.icon" : "session::docker",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.83",
+        "session.uuid" : "910f1af0-bd2a-4741-9157-1c87cc3de808"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCawt8uM0yF25YvH9N+g6cRfabLOPTX+cNI3ZssN7rGZ4aABMRq2VEWW4eWlnRrMZnw0EafRgpMg35YxOshO2t6gGLmxeTDceBVnI0IZR172WaTl2v/cCkhLR5Y+h3RGcpYGvRiFINsUjTAz8GONQpClE0tLqcFWsZ+bCiLAP+BBZBSwAq2oR+tlvjPj1/pfowb08HWb7v6Sye91jRtgXbgHb+AqJtYKtCYrr0RnkjB/S0",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-mediumslateblue",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.115",
+        "session.uuid" : "f9426a04-95af-4e5d-9e25-95d53d9cc3f6"
+    },
+    {
+        "session.autoLogin" : "uBwCQhzPNLB+lmpV2ebQI1UA+y2C0vb6DCaSpY72UNsxMEN/lptIj5n0r6Tlur1lppBvx6JbDc3yTYJ3nAQcqgTCa2dKaHcK3r/M82pBQd9cutPk5VQ5JeV4/7oT8mrAPx6JVqDVgThSfZDX9ovdnWEBwMtB6HvSCKwi2AEW8mIsejqaqJqlaTjKklutWEWQFum8wko8SnMnSpQKOOU/vDTS7GGpjrHtl2LJNKk2O+nEBwj1WrVKqnUKN3//p2ka",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-darkturquoise",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.116",
+        "session.uuid" : "226ce17d-a9f4-4d9e-9886-d84d61d12ea6"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa4Z29ZWuERwd4cMzmTJHe6WCNjjonB7ufby40sxhTTiqom3tIWpo6v3b3VJf2zWCn9GKqtN+XtlzRW34I+MYrT2B2cSWcyjJ7iYB0S3jEWH2rn7E1vXd1Bm1Pf7Hse5+nRYOsTAL+yBFzsiMD1LcG+zHgoh/ABkDHRYMmDChDeZ2yjYkfWZ6x8WhgcaEFgqJagFpy7R/BLBv4eg9gH/P9M1sWMx4fVnkvZOO4CovOyh/",
+        "session.group" : "cfps",
+        "session.icon" : "session::circle-mediumslateblue",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.84",
+        "session.uuid" : "ddca413a-52d9-4042-88c3-9445f854ea44"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa7DrHqgfmi2XnZ8LGLfjlrth5OOCKSiipiI+hftlId6yXy5KqM+IDHOIOG7Emo1YnQnoDSBJwbOCCyOZve4zxHuGzxCeuaLI7s0RvVWj5MsaKZ2GZHM+ISa+FvFHubImiha2qNTxbffUG86W5/gKz345nmvB7rLBqdMCD1Plv22uXBmOaOpZG+Rt24MO+FBaq7GQ35measg70wEzo+VNvpBTAzhtH0O6eErPao2Jka/6",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-rosybrown",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.103",
+        "session.uuid" : "1770d4cc-87d5-46cd-9b3f-fb9133426dd9"
+    },
+    {
+        "session.group" : "MyMachine",
+        "session.icon" : "session::square-gold",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.132.31",
+        "session.uuid" : "d73822ad-0890-4418-8be2-6c25c2af83de"
+    },
+    {
+        "process.arguments" : "C:/WINDOWS/system32/cmd.exe  /s /k \"$(AppDir)/vendors/clink/clink_x64.exe\" inject",
+        "process.workingDirectory" : "$(HomeDir)",
+        "session.autoLogin" : "DgZkpvDilXVu6wC5Woh2+Ve7BopygZ0x/rAV3MNK9dsOkD9ye/rzbvi1ZdQ+C1btfrmY06E33fnvLsqMQreIci3jFd7PdlFnSSQ1yi1lPqfkYqb93n7Dwl+Wu93O++npAas0Xn0ZuYS5RV+R+YQISk/ccCczsdWessu9oH8VZz3vCwRKQuEJoTwnlPElhH0w8wiJzHSVZpalSbNpbflLiB8A+xTMqaiururZ20nRQKvGYB31H0RR4AMt7OpKWAaz",
+        "session.group" : "MyMachine",
+        "session.icon" : "session::square-mediumslateblue",
+        "session.label" : "树莓派",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.system" : "cmd",
+        "session.target" : "172.22.133.184",
+        "session.uuid" : "288139b1-548d-460a-be86-3c80e74f1807",
+        "window.caretStyle" : "blinking line"
+    },
+    {
+        "session.autoLogin" : "Rd5ve28NTOZRvhVuoOU9dk/Y6cxENeXTXeEkkv02Y6phJE+CfusfJQKSmLKobblezk6P9nERrAvg3CVa9hcZJntM4ss0PT+pmZ0XdjA3TaVdLNa4vj5i323ApHgJ7IQJU+N9hh4x9A7Kww4hJEEhaycw1ehamvqUMEGHrAhL8QfkI1d5nUyfojXPDogr3DPBABjlphMFRIaDIvg9YHG0WehjX+NyRNDKEVv89AmVieMGe67ipiSdXFMpnDebSePX",
+        "session.group" : "MyMachine",
+        "session.icon" : "session::square-rosybrown",
+        "session.port" : 2222,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.133.112",
+        "session.uuid" : "f28e3cc5-e34d-46a3-8a54-f44d685822e4"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa/vuqyF7ByhFo6zR+Z0dgLfGqogchEFlvA66Q6Be+iQYk1WJEZnlwGkNMzXcnQY5CuiPG2/5Rw5wy6AKXUVGKLqgDjj7WSdiQMLm6ni66Klpuhdpz16lrElIvbRdF0C7W2icozunOPAJz7kBpdNkmmCNdZAkKTko+iCKI6U3zBvJrmo6dOdCTBSO7QqBIoI8CKaP7PCZROAO4mHCY8qcL9jqFyRMQ+ChM7w+HTqkVPRH",
+        "session.group" : "cfps",
+        "session.icon" : "session::circle-darkturquoise",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.85",
+        "session.uuid" : "ed64b649-de51-4950-9efb-03238f18e3a1"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa/Xy5MLLGEDaI6vqT671vrWwi4/4ZByPM/56+i3ctPzdfeoXx96pOYuDaYuyLT8LJqrl0NZlbj86pzZuxoOehwngWv5m52FsXf7TTDnMMESAGRE1DoYMlr60EwTlvAUS5/GJooH8rJtHl3bljGsbcXS+mzF7uTPosCFHSGOJ8stKwa8HP/tI2ZgA/I5gFnyhFrpptPKg+JhhQMqiqP2/52HJcwvDS++R8FpUIMLrYrAL",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-darkturquoise",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.69",
+        "session.uuid" : "66d523e3-760f-4025-8205-999b520649b0"
+    },
+    {
+        "session.group" : "MyMachine",
+        "session.icon" : "session::square-gold",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.132.31",
+        "session.uuid" : "dde37f88-ac25-4f26-9cd7-6df477a23a09"
+    },
+    {
+        "session.autoLogin" : "c+wibEBeR9CQOCJfoVDuLy+sACRG2GMLYm4jP6Gb5rxd03FQPJhcNXdPL3mdZfOTtZDDBgRNazAwntFTKaHgrdbUxxkdfHqzfcPIkMOjSaY8Va+3SPWdgDgAE78/CaxjWQUnoHlMLc87FdOGHZlkpcRUToEgYW8LF0z5yJaM9kqtLs9hKDpoc0fbd3YzOcamr9/J4ZGEiqJ7aWFqgiOnE2VEdqwNvHHvi74p9J8YV7fFaLOu9/32Fj3aYDt8dD+Q",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-darkturquoise",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.114",
+        "session.uuid" : "57bb8138-5f66-432c-81b7-b4b29daf9ce1"
+    },
+    {
+        "session.autoLogin" : "c+wibEBeR9CQOCJfoVDuL0YvNOIbsL9oQ/DCxlMzg2pqmJK0QqVfsiEe/QxUlQ79QOMCXT/wIQiniBttHTwkBM956k6IL+RLOHhFb2hQiFFxnJKgM9p4Ah4gzS3xmTsReHBrnakmakh2gDoR1YQjLB/97TWs2d+KVC7FYYeqzAeOrW5BKmRgMzMVr+m65YfIT0QGbVdirkHb1TujN/agoe0rQxfVM41SmwhZYxFxjROEvch8eC7Cxq8bo3nhbA/l",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-deeppink",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.117",
+        "session.uuid" : "b16193ea-ff34-448a-b2cb-b6c6d6e77e1d"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCaxU3wCCKrghmHNfwyBnxAj/jazjpUTLv1aKGHmgE48yC5edKVq24b/NCjJljwTSlL7bnZz1nBxaHpN7NOXBZH8lSOgDhKU89ETYN/lQgfz7Hzx7mxgedCf/iWkUZUEriyHklotux63A/26xQOJYwyjNbfrjF7lC/i0XUjiwgx4vFvIufybtGzLra/P8s37sB8neAl/68D/JhXbN7cAlUtfqjog+KORRJ66W+1sPpyiIK",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-gold",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.95",
+        "session.uuid" : "d84c5bd8-bd2f-4848-944b-b366895b3e25",
+        "ssh.verifyServerFingerprint" : false
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa81TDepegUriLd+T8zqE+N4+YuM9+fYa5pCLpANVOF70uNcvzHevowOdPkIjJEgtmvLqDs2s1JVkV0LgYGgmwe2gcpgBOayIxyiyhgGc9gB9NFxvJq98bRzAsVwXdpusniVINzFUDYoR87g9HZ8ow5TWBmnDH8+AOZ2RVND5vFkGaFjQulLWt0cOQl8A8jyOsr/nccuh1yVEyARkcsO0N6fg5MEgVMZgFEBWNLJNSz0e",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-firebrick",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.102",
+        "session.uuid" : "753cb652-9e1a-44e5-b117-807ccd6d8e9d"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCawSr+hQ58eGF3Sv/EunyHIyZxTvDN0LjbONnQ2NWvrwrwVolLJCLxVxsC+u9ERiazk1Q+i6DOWTBXa5uiudPOZwG6BCQVfv0EYxYAz3unIYHcyH78y/IwA5NQ/Twli7on7j6B6jpMgA0cwQdNJCD5ZHJmliQbV+ZmdVg/1AnvsoymTE2SGegignKhb7dRNrKJapDxjUa4pa0jBKUdwhnfQHt5bcqEJOS8JGfuy7wf0HZ",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-coral",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.104",
+        "session.uuid" : "31e99b51-ef92-495d-b0ad-95c1d3f94761"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa2WK7V08scnHhuogbDuXUY3Str5TUv5SN7hq1kxq+hbZcZFDGR2AZQ3mSGQmUqw51IRw1MUX6yv7Q3qGoZrwtmmiDs0ofwTpRTB27EPSImbt/n7+NzsIGVxooaDnZ/DLeODB4IehIJhNZ8KEsMHA/yqr+LotD5LldRpJQgw6AYSgtNE/m9caL/r1hCH2TEpaPRnkcT1icC8JMTGLzjPxAmbzM4R2EiCsZY/PBVjuSMqM",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-mediumorchid",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.107",
+        "session.uuid" : "e71f3b4b-85a8-4dc2-a365-e6f7c8789524"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa/4UdqHWSKvQtiP8+CXMi0fyQ83zxjATENCJap/CEtahZ4UtIqjTuJUFLtVDOxHS7xPGH7sdYtLZ8QG9BiHHhGR3sGM5bvPdTO+T9/GlOt6gLoMnzzJ95GUp6QzSd3/Sw9SViIzwqogafV6nTu+4PGfve/q1ocP3Jus6AL3MFnmHyU/Mj8IbsNKalQiM+TNbtri6vM15bLamzXL+VgMWUmRY8VbjhZAcj5+MzxmcVH0N",
+        "session.group" : "cfps",
+        "session.icon" : "session::pinwheel-firebrick",
+        "session.label" : "jenkis_maven",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.20",
+        "session.uuid" : "dcd143ec-a73f-4455-a55d-9718931173c0"
+    },
+    {
+        "session.autoLogin" : "7Y02b89Jk1y+3wNEEpzMvyKjTJLcAExMAHeyRn8BvDBxVGB3k45a9uRThnaKBF01Ds7fJX4OODGdz/pxLFxtuAmxTB8jdPyPkAo3iPPPfqmU1I6xNja5SY/4lOHMWlM9WPXZoRwDoWaIANs7rf/iIRnzC/GdZxDEZGS/E9jUoTjzGaEj0pB4CtejnjGlIii29xFBwlfzIEeSfzcjiY47fTpWauAjfCX4Jy/R7SZ+HzTKFXv5/Tx+Dgc50wtG6UBi",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-coral",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.99",
+        "session.uuid" : "b90fbe11-6a09-43ee-911f-471e628aab22"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa2VdlIJKbxLBVKfGHIHoWNY5zjD70L3PMhe375jiYlq1pVNNxiCrCFyrUm7uzPAtpnX1pkHE6Io1dypQGTgtMLcXa9zv3YwBz6VN4DkJvcSEY0IJEbE5Wg2Ets9JKVxgPhe6KNnAeLKcpnVmLkRWIUEXmlUphedTxdpr4mWmhyut6262x7I5GxwGvGQDpnlCOWjFpIFhxKBxXbD8uZfQ9WZTwIRswZIVsGgRfwFjnWbJ",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-dodgerblue",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.132",
+        "session.uuid" : "9389b10c-d3ee-45f1-a12c-9f1415fc047d"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCayR8fG5dPbBtgIHIG6X9BlHFh9qNoJ3CIkSoDIHHlG5x+5cgdI5KiMa0YDTSwXCzJ7bNvGF61OQU0HWUvUW8kviusx8GPTQIap44/wcEvSQE9eMrL2i3GOvNgJYc0oFJ7PRpVM4vdAwyfhLDs6BzYmyXUvQHxX4SRfUZtBuYIPet2GZzi1qGr2tgThyGB4D8brz7xDUg5EyiyKBwIdBocdjVe49oW3+9Vq/3G8T5T6h8",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-firebrick",
+        "session.label" : "172.22.70.28",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.28",
+        "session.uuid" : "bcc74d2c-0856-4a68-b4d8-87af7a1cf228"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa6+wvZuKfm5CR2/+otVewvLGZCNigkxT58o0XG4cXMUwtkugyPFLjGiAUxU+JtnxZuG532mWBbN3sxmcfew0umQW2e6QHtW93YFpAPeXSx84K238Wd6SCuajvLrH+b3BP0zhRuSu5c1iN1J3fDAvdr1LMMoTv8aDQ7ibwejkRmVqXtIvP4qJBLfWE3pvi6WqtKZYGisrF+1amG8nVV/LnlrdReikEQ1ffwVCGJYTn7cR",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-darkturquoise",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.90",
+        "session.uuid" : "7c96b13a-40ef-4fbf-8345-2c305a3ff7dd"
+    },
+    {
+        "session.autoLogin" : "Cbhr+dNNJ6ZF8wVORn0DwzfNjaaKU8NlO8EMAILZkERFQkTM4TFc7oTq0w4mLrai4AijmRKeW0wkWf/xckjQxT0Lesc33/qeqcTx1/RbN2/AMCHIPmky6LERrb2K0DNhw1U1LlzV36ILC5sVr7ua0LGWR1dUqG2Gb6+wcAz/OF13vbkOMSt2hzijhlz1gHPTcjcn+4+Hr4qlse8d0GQ1ZGZOpcK5dzkxpZn3BRMAyxgYPsY+DsjHoq3TNIlQ7rH3",
+        "session.group" : "MyMachine",
+        "session.icon" : "session::centos",
+        "session.label" : "腾讯主机",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "root@49.232.195.231",
+        "session.uuid" : "7b08a952-b0d7-4037-93d9-145dd5dd8dea"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa3agzGIAdjVa5TerG0Hs1pQzm7DqOIL9N9nAh/AqbeqQe3gh7duZ78747S8appcoPq3BHqsYEvlumvLkC7ot5M5rhVrxC01+VxMV8nDjjYmNvZW3QEmDyFSxtJEeUHOWLbNgh+05JN+Rq4ibJ8m2Egop7vOcjXSN2JOVL1Apg6hpcpEDhW3j/QVq472AQ7ztrQYIGNp0c5zj7EbII1qCyXghnLe+HpLwTmwTse2qYrl1",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-mediumslateblue",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.1",
+        "session.uuid" : "88af43f8-213b-4ab2-a389-8e8d227230dc"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa4+Wxt7wNTGdUflMT4nAdlIEKdrPSDH/16zpHIdltKzMU2VaQI0qtUYwjUxXiZMpKyQHzFQwiRuIiZvxBhkM4GyLVdZukUFwDtnmMMFZUskFcMKIB58jyRsjMlZFM46gyURg1P6/YsDBZWMS5MB8OJ+dQgtlb4tBCGA4SR774SzTB3gZknvWfnCje+AqcxJ6u2IZdWTs01jdMFNC+oMuQKfsMq57dD5FEWvmp/cBSy75",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-firebrick",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.6",
+        "session.uuid" : "2665fe3b-319c-41e6-a182-3d2aa0b84a14"
+    },
+    {
+        "session.autoLogin" : "lXsug6jyEcV/2w4htqyCa4YrJ4wt1PFiHfbzaAlICddWJdMIjtbFN3zsCtMijog+NrpiCuLhufenpwShjRTV5CcMoRVzifEceCKt4VoCIH0ZZw8am0a2/AGoLkXQJfjP+XVcjh2r1j/QkGGUDLC94yE+ltmnXKRUXvNYVfWAgTNDOC18C6hWzhkb1/ZYDOaDW3qLNJ04j8V5J1lFEwLqA8oJQt5w1Gb5EAgB8bvyFeacjVwsC2KsppuTycnTbhcL",
+        "session.group" : "cfps",
+        "session.icon" : "session::square-mediumorchid",
+        "session.port" : 22,
+        "session.protocol" : "SSH",
+        "session.target" : "172.22.70.7",
+        "session.uuid" : "7576054c-069c-41ed-afc0-c470073be5f3"
+    }
+]

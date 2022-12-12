@@ -1,0 +1,42 @@
+mail_host: smtp.163.com
+mail_pass: JHMODUBIERVVCFLO
+mail_user: 13054511186@163.com
+sender: 13054511186@163.com
+#巡检时间 单位秒
+waitTime: 5
+serverjUrl: https://sc.ftqq.com/{}.send
+SendKey: SCT155695TRxphLmDxaQCZH6GjAFuEKDi9
+receiver: 
+userId: JiangYanKai
+targets:
+  - link: http://mikecrmlulu.mikecrm.com/FkSR7sn
+    name: 选课
+# - link: http://www.infoccsp.com 
+#   name: 航空物流信息服务平台
+# - link: http://accos.airchinacargo.com 
+#   name: 国货航货运生产系统
+# - link: http://cargos.infocchp.cn/web/ 
+#   name: 地面操作运行服务生产系统
+# - link: http://itty.infocchp.cn/iTTY_HRB/Login.html 
+#   name: 哈尔滨机场iTTY网站
+# - link: http://itty.infocchp.cn/iTTY_ngb/Login.html 
+#   name: 宁波机场iTTY网站
+# - link: http://itty.infocchp.cn/iTTY_nng/Login.html
+#   name: 南宁机场iTTY网站
+# - link: http://itty.infocchp.cn/iTTY_tsn/Login.html 
+#   name: 天津机场iTTY网站
+# - link: http://itty.infocchp.cn/iTTY_tao/Login.html 
+#   name: 青岛机场iTTY网站
+# - link: http://itty.infocchp.cn/iTTY_lhw/Login.html 
+#   name: 兰州机场iTTY网站
+# - link: http://itty.infocchp.cn/iTTY_inc/Login.html 
+#   name: 银川机场iTTY网站
+# - link: http://ilink.infocchp.cn/ 
+#   name: iLink管理网站生产系统
+# - link: https://aliilink.infoccsp.cn/ 
+#   name: iLink管理网站生产系统
+# #晚上需要关闭,白天打开
+# #- link: http://accostest.airchinacargo.com 
+# #  name: 国货航货运测试系统
+# - link: https://acr.travelsky.com.cn/#/login 
+#   name: 航空公司货物集中报载系统

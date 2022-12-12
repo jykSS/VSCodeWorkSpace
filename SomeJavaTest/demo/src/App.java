@@ -2,10 +2,11 @@ import java.util.*;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        String s="23";
-        Map<String,String> map = new HashMap<>();
-        map.put(null, s);
-        System.out.println(map.get(null));
+        for (int i = 1; i < 101; i++) {
+            String locationid = String.format("%03d",i);
+            System.out.println("update t_whs_location l set l.locationid='GJJGLS00"+locationid+"'  where l.warehouseid='GJJGLS' and l.locationid='GJJGLS0"+locationid+"';");
+            System.out.println("update t_whs_goodsinventory g set g.locationid='GJJGLS00"+locationid+"'  where g.warehouseid='GJJGLS' and g.locationid='GJJGLS0"+locationid+"';");
+        }
         // letterCombinations(s);
     }
     public static Map<Integer,String> initMap (){

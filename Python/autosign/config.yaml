@@ -1,15 +1,17 @@
 Object:
-- SendKey: SCT124438T3of5BHLaoUgcBa35ZU69Pci6
-  name: jyk
-  register: N
-  token: 88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134
+- name: jyk
+  receiver: l839401463@126.com
+  register: Y
+  token: 7D179618-4310-4E0F-B40B-6173CCCE503C
+  SendToken: jyk
 - name: ly
   receiver: l839401463@126.com
   register: Y
-  token: CC933BD1-306B-4B0A-A816-6D0386F97088
+  token: '11'
 apikey: 0a2a394de4ebd3a9abc16358b65c4703
 mail_host: smtp.163.com
 mail_pass: JHMODUBIERVVCFLO
 mail_user: 13054511186@163.com
+wechaturl: "http://49.232.195.231:10086/push"
 sender: 13054511186@163.com
 serverjUrl: https://sc.ftqq.com/{}.send

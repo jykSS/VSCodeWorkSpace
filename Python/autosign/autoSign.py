@@ -23,6 +23,19 @@ def useConfig():
         content = yaml.load(doc, Loader=yaml.Loader)
         return content
 
+def sendMessage(subject,param):
+    if 'SendToken' in param:
+        yaml_reader = useConfig()
+        url = yaml_reader['wechaturl']
+        payload = {
+            "userId": param['SendToken'],
+            "message": subject
+        }
+        headers = {"token": "jyk_pusher"}
+        requests.request("POST", url, json=payload, headers=headers)
+
+        
+
 def sendEmail(subject,param):
     yaml_reader = useConfig()
     if 'receiver' in param:
@@ -59,6 +72,8 @@ def sendEmail(subject,param):
         }
         url = yaml_reader['serverjUrl'].format(key)
         requests.post(url, params=payload)
+    if 'SendToken' in param:
+        sendMessage(subject,param)
         
 result = 0
 # 自动打卡
@@ -101,7 +116,7 @@ def autoSign(token):
 while True:
     time.sleep(0.01)
     time_now = time.strftime("%H:%M:%S", time.localtime())  # 刷新
-    if time_now == "08:25:05" or time_now == "17:33:10":  # 此处设置每天定时的时间
+    if time_now == "08:20:05" or time_now == "17:33:10":  # 此处设置每天定时的时间
         #网页获取节假日
         # 获取当前时间 格式20190225
         yaml_reader = useConfig()
@@ -133,12 +148,12 @@ while True:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
                                 if param['register']=='Y':
-                                    sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                    sendMessage(param['name']+"的下班autoSign诺明自动打卡成功",param)
                                 else:
                                     sendEmail(param['name']+"正在休假,无需打卡",param)
                             else:
                                 if param['register']=='Y':
-                                    sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                    sendMessage(param['name']+"的上班autoSign诺明自动打卡成功",param)
                                 else:
                                     sendEmail(param['name']+"正在休假,无需打卡",param)
                                 result = 0
@@ -147,7 +162,7 @@ while True:
                                 sendEmail(param['name']+"的autoSign诺明自动打卡失败",param)
                             else:
                                 sendEmail(param['name']+"正在休假,无需打卡",param)
-                            result = 0           
+                            result = 0        
             else:
                 print("当天为周末不需要打卡")
         else:
@@ -178,15 +193,17 @@ while True:
                             time_nowH = time.strftime("%H", time.localtime())
                             if time_nowH=="17":
                                 if param['register']=='Y':
-                                    sendEmail(param['name']+"的下班autoSign诺明自动打卡成功",param)
+                                    sendMessage(param['name']+"的下班autoSign诺明自动打卡成功",param)
                                 else:
                                     sendEmail(param['name']+"正在休假,无需打卡",param)
                             else:
                                 if param['register']=='Y':
-                                    sendEmail(param['name']+"的上班autoSign诺明自动打卡成功",param)
+                                    sendMessage(param['name']+"的上班autoSign诺明自动打卡成功",param)
                                 else:
                                     sendEmail(param['name']+"正在休假,无需打卡",param)
                                 result = 0
+
+
 
 
 
@@ -195,3 +212,6 @@ while True:
 # reproduce query strings 100% accurately so the one below is given
 # in case the reproduced version is not "correct".
 # response = requests.post('https://bj.psaas.cn/ess/app/tc/save?token=88D0F74F-F54C-4DE4-A91F-A1D3D4DD9134&', headers=headers, data=data)
+# vim /etc/crontab    
+# 10 8 * * *  root  cd /opt/AutoSign &&  nohup python3 -u /opt/AutoSign/autoSign.py > /opt/AutoSign/autoSign.txt 2>&1 &
+# nohup python -u autoSign.py > autoSign.txt 2>&1 &
