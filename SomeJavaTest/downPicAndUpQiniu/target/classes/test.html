@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <link rel="icon" href="/favicon.ico">
+    <title>【源码分析系列】 带你快速攻略Kafka源码之旅入门篇</title>
+    <link rel="stylesheet" href="./css/quill.snow.css?t=202208171505" />
+    <link rel="stylesheet" href="./css/github.css" />
+    <style>
+        body {
+            margin: 0px;
+            font-size: 14px;
+            background: #f0f3f8;
+            font-family: "PingFangSC-Regular","Helvetica Neue",Helvetica,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+        }
+        .top-bar {
+            height: 60px;
+            background: #EBEBEB;
+        }
+        .post {
+            margin: 0 auto;
+            width: 800px;
+            padding: 40px;
+            box-sizing: border-box;
+            position: relative;
+            background-color: white;
+        }
+        .post .title {
+            margin: 0px;
+            font-family: PingFangSC-Medium;
+            font-size: 20px;
+            color: #1A1A1A;
+            line-height: 30px;
+        }
+        .group-info {
+            margin-top: 8px;
+            font-size: 14px;
+            color: #567895;
+        }
+        .group-info a {
+            color: #567895;
+            text-decoration: none;
+        }
+        .author-info {
+            margin-top: 30px;
+            margin-bottom: 24px;
+            height: 24px;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .author-info .author {
+            display: flex;
+            align-items: center;
+        }
+        .author-info img {
+            height: 24px;
+            width: 24px;
+            border-radius: 12px;
+        }
+        .author-info .date {
+            color: #B3B3B3;
+        }
+        .author-info .nick-name {
+            color: #4D4D4D;
+            margin-left: 12px;
+        }
+        .content {
+            letter-spacing: 0;
+            color: #2F3034;
+            font-size: 16px;
+            word-wrap: break-word;
+            line-height: 28px;
+            white-space: pre-wrap;
+        }
+        .content div, .content p {
+            line-height: 28px;
+        }
+        .content figure {
+            margin-inline-start: 0px;
+            margin-inline-end: 0px;
+        }
+        .content img {
+            max-width: 100%;
+            object-fit: cover;
+            display: inline-block;
+        }
+        .content a {
+            text-decoration: none;
+            color: #567895;
+        }
+        .content a:hover {
+            text-decoration: underline;
+        }
+        .content p {
+            margin: 0px;
+            white-space: pre-wrap;
+            tab-size: 4;
+        }
+        .content table {
+            display: block;
+            overflow: auto;
+            border: none;
+            border-collapse: collapse;
+            empty-cells: show;
+            max-width: 100%
+        }
+        .content table td {
+            min-width: 5px
+        }
+        .content table td,.content table th {
+            border: 1px solid #ddd
+        }
+        .content table td:empty,.content table th:empty {
+            height: 20px
+        }
+        .content table th {
+            background: #ececec
+        }
+        .content blockquote {
+            color: #9a9a9a;
+            margin: 15px 0 !important;
+            border-left: 3px solid #ccc !important;
+            padding-left: 10px !important;
+        }
+        .content code {
+            white-space: normal;
+            background-color: #f0f0f0;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        .content .article-hr {
+            border-style: solid;
+            border-width: 1px 0 0;
+            border-color: rgba(0, 0, 0, 0.1);
+            transform: scale(1, 0.5);
+            margin: 15px 0;
+        }
+        .content ol {
+            padding-left: 0;
+        }
+        .ql-snow .ql-editor .ql-code-block-container {
+            background-color: rgba(0, 0, 0, 0.03);
+            border: 1px solid #f0f0f0;
+            border-radius: 2px;
+            color: #333;
+            white-space: pre-wrap;
+        }
+        .content .ql-syntax {
+            background-color: #23241f;
+            color: #f8f8f2;
+            overflow: visible;
+            white-space: pre-wrap;
+            margin-bottom: 5px;
+            margin-top: 5px;
+            padding: 5px 10px;
+            border-radius: 3px;
+        }
+        .content pre {
+            white-space: pre-wrap;
+        }
+        .content ol, .content ul {
+            margin: 0;
+        }
+        .ql-align-center {
+            text-align: center;
+        }
+        .ql-align-right {
+            text-align: right;
+        }
+        ul {
+            list-style-type: disc;
+        }
+        footer {
+            margin-top: 48px;
+            margin-bottom: 48px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        footer img {
+            width: 18px;
+            height: 18px;
+            margin-left: 15px;
+        }
+        footer .text {
+            font-size: 15px;
+            color: #16B998;
+            margin: 0 15px 0 6px;
+        }
+        footer .horizon-line {
+            border-bottom: 1px solid rgba(0,0,0,0.08);
+            width: 50px;
+        }
+        .qrcode-container {
+            position: absolute;
+            left: 820px;
+            top: 0px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            padding: 20px 20px 15px 20px;
+            border: 2px solid rgba(0,0,0,0.05);
+        }
+        .qrcode-container img {
+            width: 140px;
+            height: 140px;
+            margin-bottom: 15px;
+        }
+        .qrcode-container .text-desc {
+            font-size: 12px;
+            color:#B3B3B3;
+        }
+        #qrcode-url {
+            display: none;
+        }
+        .message-container-overlay {
+            position: fixed;
+            left: 50%;
+            top: 50px;
+            width: 400px;
+            margin-left: -200px;
+            margin-top: 10px;
+            z-index: 99;
+        }
+        .message-item {
+            margin-top: 5px;
+            height: 40px;
+            background: rgba(252, 192, 96, .9);
+            box-shadow: 0 2px 8px 0 rgba(227, 169, 33, .2);
+            z-index: 50;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .js-disable-copy {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+        li.ql-indent-1:not([data-list]) {
+            counter-increment: list-1;
+            margin-left: 1.2em;
+        }
+        li.ql-indent-2:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-2;
+            margin-left: 2.7em;
+        }
+        li.ql-indent-3:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-3;
+            margin-left: 4.2em;
+        }
+        li.ql-indent-4:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-4;
+            margin-left: 5.7em;
+        }
+        li.ql-indent-5:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-5;
+            margin-left: 7.2em;
+        }
+        li.ql-indent-6:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-6;
+            margin-left: 8.7em;
+        }
+        li.ql-indent-7:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-7;
+            margin-left: 10.2em;
+        }
+        li.ql-indent-8:not([data-list]) {
+            list-style-type: circle;
+            counter-increment: list-8;
+            margin-left: 11.7em;
+        }
+        ol {
+            counter-reset: list-1 list-2 list-3 list-4 list-5 list-6 list-7 list-8 list-9;
+        }
+        ol li:not([data-list]) {
+            list-style-type: none !important;
+            counter-increment: list-0;
+        }
+        ol li:not([data-list])::before {
+            display: inline-block;
+            content: counter(list-0, decimal) ".";
+            position: relative;
+            left: -10px;
+        }
+        ol li.ql-indent-1:not([data-list])::before {
+            content: counter(list-1, decimal) ".";
+        }
+        ol li.ql-indent-2:not([data-list])::before {
+            content: counter(list-2, decimal) ".";
+        }
+        ol li.ql-indent-3:not([data-list])::before {
+            content: counter(list-3, decimal) ".";
+        }
+        ol li.ql-indent-4:not([data-list])::before {
+            content: counter(list-4, decimal) ".";
+        }
+        ol li.ql-indent-5:not([data-list])::before {
+            content: counter(list-5, decimal) ".";
+        }
+        ol li.ql-indent-6:not([data-list])::before {
+            content: counter(list-6, decimal) ".";
+        }
+        ol li.ql-indent-7:not([data-list])::before {
+            content: counter(list-7, decimal) ".";
+        }
+        ol li.ql-indent-8:not([data-list])::before {
+            content: counter(list-8, decimal) ".";
+        }
+        ol li.ql-indent-9:not([data-list])::before {
+            content: counter(list-9, decimal) ".";
+        }
+        h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+<div class="post js_watermark quill-editor">
+    <h1 class="title">【源码分析系列】 带你快速攻略Kafka源码之旅入门篇</h1>
+    <div class="group-info">
+        <a href="https://wx.zsxq.com/dweb2/index/group/51122554151214">
+            <span>来自：</span>
+            <span class="group-name">华仔和他的朋友们</span>
+        </a>
+    </div>
+    <div class="author-info">
+        <div class="author">
+            <img src="https://images.zsxq.com/Fisd6huPY7RSY_ZYghBRTS7S5nwT?e=2032502400&token=kIxbL07-8jAj8w1n4s9zv64FuZZNEATmlU_Vm6zD:UpSHDLtdCy_yzWFVQff_1wYts6M="  alt="用户头像" />
+            <span class="nick-name">王江华</span>
+        </div>
+        <span class="date" id="article-date">2023年01月19日 16:29</span>
+    </div>
+    <div class="ql-snow">
+        <div class="content ql-editor"><p><br></p><p>大家过年好，我是 华仔, 又跟大家见面了。</p><p><br></p><p>从今天开始我将为大家奉上 Kafka 源码剖析系列文章，正式开启 <span style="background-color: rgb(255, 255, 255); font-size: 15px;">「</span><strong style="color: rgb(255, 104, 39);">Kafka的源码之旅</strong><span style="background-color: rgb(255, 255, 255);">」，</span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">跟我一起来掌握 Kafka 源码核心架构设计思想吧</span><span style="background-color: rgb(255, 255, 255);">。</span></p><p><span style="background-color: rgb(255, 255, 255);"><br></span></p><p><span style="font-size: 15px; background-color: rgb(255, 255, 255);">今天这篇我们先来聊聊 Kafka 源码环境搭建、源码全景图以及后续源码剖析之旅路线，带你梳理整体的源码分析脉络。</span></p><p><span style="font-size: 15px; background-color: rgb(255, 255, 255);"><br></span></p><p>认真读完这篇文章，并准备一台电脑跟我一起操作，我相信你会对 Kafka 源码环境搭建以及全景图剖析以及源码剖析整体路线，有更加深刻的理解。</p><p><br></p><p><br></p><p><img src="https://article-images.zsxq.com/Fs6Jf2fhPWp3uiaqsVLgJm8BoRge"></p><p><br></p><h1><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">01 总体概述</strong></h1><p><br></p><p><span style="font-size: 15px;">平常我们在基于 Kafka 做应用开发的时候，可能只是将 Kafka 作为一个消息系统来存取消息、抗高并发以及解耦系统，并不会接触到源码层面的知识。但是大家在使用或者运维 Kafka 时或多或少会遇到一些棘手的生产故障问题，如果你不了解 Kafka 源码层面的实现原理，那么在实际开发中排查问题故障点肯定会受到阻碍。因此解决问题的最好办法就是学习和阅读源码，这样我们可以快速掌握 </span><span style="background-color: rgb(255, 255, 255); font-size: 15px;">「</span><strong style="color: rgb(255, 104, 39); font-size: 15px;">Kafka 的核心实现细节</strong><span style="background-color: rgb(255, 255, 255);">」，来</span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">帮助我们更深刻的理解 Kafka 内部设计原理，通晓高吞吐、高可用、高并发系统架构如何设计的，另外可以帮助我们快速建立性能分析、故障问题的排查定位思路和解决问题的高效方法和调优方案，减少解决问题的时间成本</span><span style="background-color: rgb(255, 255, 255);">。</span></p><p><br></p><h1><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">02 Kafka 源码环境搭建</strong></h1><h1 class="ql-align-center"><strong style="background-color: rgb(255, 255, 255); font-size: 17px; color: rgb(234, 84, 41);"><br></strong></h1><h2 class="ql-align-center"><strong style="background-color: rgb(255, 255, 255); font-size: 17px; color: rgb(234, 84, 41);">版本说明</strong></h2><p><br></p><p><span style="font-size: 15px;">在阅读 Kafka 源码之前，首先我们要做一些环境准备工作, Kafka 官方已经更新到 3.1.0版本，但是从 2.8.0 版本开始就去掉了 ZooKeeper 的依赖，生产环境使用不太稳定，因此这里我们将选用</span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">「</span><strong style="color: rgb(255, 104, 39); font-size: 15px;">2.7.0</strong><span style="font-size: 15px; background-color: rgb(255, 255, 255);">」</span><span style="font-size: 15px;">版本作为源码研究的版本，后续都会以该版本来剖析源码。</span></p><p><br></p><h1 class="ql-align-center"><strong style="background-color: rgb(255, 255, 255); font-size: 17px; color: rgb(234, 84, 41);">环境准备</strong></h1><p><br></p><p><br></p><p class="ql-align-justify"><span style="color: rgb(51, 51, 51); font-size: 14px;">1）Kafka版本：这里我们选用</span><strong style="color: rgb(255, 104, 39); font-size: 14px;">2.7.0</strong><span style="color: rgb(51, 51, 51); font-size: 14px;">版本。</span></p><p class="ql-align-justify"><span style="color: rgb(51, 51, 51); font-size: 14px;">2）JDK版本：这里我们选用</span><strong style="color: rgb(255, 104, 39); font-size: 14px;">1.8</strong><span style="color: rgb(51, 51, 51); font-size: 14px;">版本，自行安装</span><span style="color: rgb(51, 51, 51); font-size: 15px;">。</span></p><p class="ql-align-justify"><span style="color: rgb(51, 51, 51); font-size: 14px;">3）Scala版本：由于Kafka Broker 端源码是基于Scala写的，这里我们选用</span><strong style="color: rgb(255, 104, 39); font-size: 14px;">2.12</strong><span style="color: rgb(51, 51, 51); font-size: 14px;">版本, 2.13 版本刚推出不久, 暂不适合。</span></p><p class="ql-align-justify"><span style="color: rgb(51, 51, 51); font-size: 14px;">4</span><span style="color: rgb(51, 51, 51); background-color: rgb(255, 249, 249); font-size: 14px;">）</span><span style="color: rgb(51, 51, 51); font-size: 14px;">Gradle版本：这里我们选用</span><strong style="color: rgb(255, 104, 39); font-size: 14px;">6.6</strong><span style="color: rgb(51, 51, 51); font-size: 14px;">版本，使用此来安装 kafka 源码环境。</span></p><p class="ql-align-justify"><span style="color: rgb(51, 51, 51); font-size: 14px;">5）Zookeeper版本：这里我们选用最新版</span><strong style="color: rgb(255, 104, 39); font-size: 14px;">3.6.3</strong><span style="color: rgb(51, 51, 51); font-size: 14px;">版本。</span></p><p><br></p><h1 class="ql-align-center"><strong style="background-color: rgb(255, 255, 255); font-size: 17px; color: rgb(234, 84, 41);">环境搭建</strong></h1><p><br></p><h2><strong style="color: rgb(234, 84, 41); background-color: rgb(255, 255, 255);">01 Scala 环境搭建</strong></h2><p><span style="color: rgb(237, 108, 71);"><br></span></p><p><a href="https://www.scala-lang.org/download/2.12.8.html" target="_blank" style="font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(62, 62, 62);">https://www.scala-lang.org/download/2.12.8.html</a></p><p><a href="https://docs.scala-lang.org/zh-cn/tutorials/scala-for-java-programmers.html" target="_blank" style="font-size: 15px;">https://docs.scala-lang.org/zh-cn/tutorials/scala-for-java-programmers.html</a></p><p><a href="https://www.runoob.com/scala/scala-tutorial.html" target="_blank" style="font-size: 15px;">https://www.runoob.com/scala/scala-tutorial.html</a></p><p><br></p><p><img src="https://article-images.zsxq.com/FiWCGqL8SA6dSKOWC3tq8pDQaih4"></p><p><br></p><p><span style="font-size: 15px;">下载并解压如下：</span></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block">wget https://downloads.lightbend.com/scala/2.12.8/scala-2.12.8.tgz</div></div><p><br></p><p><img src="https://article-images.zsxq.com/FrZ_b7a0GCsN_I5HcH4PbrCSI8Up"></p><p><br></p><p><span style="font-size: 15px;">开始配置 Scala 环境变量（以Ubuntu系统为例）：</span></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block">sudo vim /etc/profile</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 配置scala安装路径及环境变量</span></div><div class="ql-code-block">SCALA_HOME=/home/wangjianghua/src/scala-2.12.8</div><div class="ql-code-block"><span class="ql-token hljs-built_in">export</span> SCALA_HOME</div><div class="ql-code-block"><span class="ql-token hljs-built_in">export</span> PATH=<span class="ql-token hljs-variable">$PATH</span>:<span class="ql-token hljs-variable">$SCALA_HOME</span>/bin</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 使其生效</span></div><div class="ql-code-block"><span class="ql-token hljs-built_in">source</span> /etc/profile</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 验证scala环境是否生效</span></div><div class="ql-code-block">scala -version</div></div><p><br></p><p><span style="font-size: 15px;">出现下面提示，说明scala环境搭建成功：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/Fhl4lASIK26htlgeDJAZfBrETpKt"></p><p><br></p><h2><strong style="color: rgb(234, 84, 41); background-color: rgb(255, 255, 255);">02 Gradle 环境搭建</strong></h2><p><br></p><p><a href="https://services.gradle.org/distributions" target="_blank" style="font-size: 15px;">https://services.gradle.org/distributions/</a></p><p><br></p><p><img src="https://article-images.zsxq.com/FiszGEMo9w_KcCQ3ldG14Ly4i3QW"></p><p><br></p><p>安装包说明：</p><p><a href="http://about:blank" target="_blank">gradle-x.x-bin.zip:</a> 安装发布版</p><p><br></p><p><a href="http://about:blank" target="_blank">gradle-x.x-src.zip:</a> 源码版</p><p><br></p><p><a href="http://about:blank" target="_blank">gradle-x.x-all.zip:</a> 全部文件版</p><p><br></p><h1 class="ql-align-justify"><span style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34); font-size: 15px;">Gradle 下载的源码不需要进行安装，下载解压后即可：</span></h1><p><br></p><div class="ql-code-block-container"><div class="ql-code-block">wget https://services.gradle.org/distributions/gradle-6.6-bin.zip</div></div><p><br></p><p><br></p><p><img src="https://article-images.zsxq.com/Fh48BJBVOTs_je20uhOg_Xi4csDL"></p><p><br></p><p><span style="font-size: 15px;">开始配置 Gradle 环境变量（以Ubuntu系统为例）：</span></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block">sudo vim /etc/profile</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 配置scala安装路径及环境变量</span></div><div class="ql-code-block">GRADLE_HOME=/home/wangjianghua/src/deps/gradle-6.6</div><div class="ql-code-block"><span class="ql-token hljs-built_in">export</span> GRADLE_HOME</div><div class="ql-code-block"><span class="ql-token hljs-built_in">export</span> PATH=<span class="ql-token hljs-variable">$PATH</span>:<span class="ql-token hljs-variable">$GRADLE_HOME</span>/bin</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 使其生效</span></div><div class="ql-code-block"><span class="ql-token hljs-built_in">source</span> /etc/profile</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 验证gradle环境是否生效</span></div><div class="ql-code-block">gradle -v</div></div><p><br></p><p><span style="font-size: 15px;">出现下面提示，说明 Gradle 环境搭建成功：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/FgKF52gqwuMx_bLTws-_wg7oJrjV"></p><p><br></p><h2><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">03 Zookeeper  环境搭建</strong></h2><p><br></p><p><span style="font-size: 15px;">Zookeeper 下载并解压如下：</span></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block">wget http://archive.apache.org/dist/zookeeper/stable/apache-zookeeper-3.6.3.tar.gz</div></div><p><br></p><p><img src="https://article-images.zsxq.com/FhuFPBU48YqeHIzvbLBPnL-nmEw0"></p><p><br></p><p><span style="font-size: 15px;">修改 Zookeeper 配置：</span></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block"><span class="ql-token hljs-comment"># 进入配置目录</span></div><div class="ql-code-block"><span class="ql-token hljs-built_in">cd</span> apache-zookeeper-3.6.3/conf</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 修改配置文件名称</span></div><div class="ql-code-block"><span class="ql-token hljs-built_in">mv</span> zoo_sample.cfg zoo.cfg</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 如需修改日志目录可以更改zoo.cfg配置的datas路径</span></div><div class="ql-code-block">dataDir=/xxx/zookeeper/data</div></div><p><br></p><p><span style="font-size: 15px;">启动 Zookeeper 服务：</span></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block"><span class="ql-token hljs-comment"># 进入执行目录【bin】</span></div><div class="ql-code-block"><span class="ql-token hljs-built_in">cd</span> apache-zookeeper-3.6.3/bin</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 执行启动命令</span></div><div class="ql-code-block">./zkServer.sh start</div></div><p><br></p><p><span style="font-size: 15px;">出现下面提示，说明 Zookeeper 环境搭建成功：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/FjC50tzTFvEisp31NRhSG5XbLO4N"></p><p><br></p><h2><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">04 Kafka 源码环境搭建</strong></h2><p><br></p><p><a href="http://kafka.apache.org/downloads" target="_blank" style="background-color: rgb(255, 255, 255); color: rgb(62, 62, 62);">http://kafka.apache.org/downloads</a></p><p><br></p><p><span style="background-color: rgb(255, 255, 255); color: rgb(62, 62, 62);"><img src="https://article-images.zsxq.com/FsFN8s-KsAl_Jpn1LjGqcp5N0v0H"></span></p><p><br></p><p><strong style="color: rgb(255, 104, 39); font-size: 15px;">Kafka 源码依赖 Gradle 环境，本文使用 gradle 命令来构建 Kafka 源码环境。</strong></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block">gradle 命令说明：</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 下载并更新gradle 套件即 wrapper</span></div><div class="ql-code-block">gradle</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 构建 jar包并运行</span></div><div class="ql-code-block">./gradlew jar</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 构建项目，看你是idea工具还是eclipse</span></div><div class="ql-code-block">./gradlew idea</div><div class="ql-code-block">./gradlew eclipse</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 构建源码包</span></div><div class="ql-code-block">./gradlew srcJar</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 构建javadoc文档</span></div><div class="ql-code-block">./gradlew aggregatedJavadoc</div><div class="ql-code-block"><br></div><div class="ql-code-block"><span class="ql-token hljs-comment"># 清理并构建</span></div><div class="ql-code-block">./gradlew clean</div><div class="ql-code-block">首先 git 切换到对应的 2.7.0 版本：</div></div><p><br></p><p><br></p><p><img src="https://article-images.zsxq.com/Fq87M73HjmDu9sebc5js5J3v2JlG"></p><p><br></p><p><span style="font-size: 15px;">然后先开始执行 gradle 命令，构建并更新 gradle wrapper 套件：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/FrCJy9rFN7rPO2ZzpNRCJ2BOUu3G"></p><p><br></p><p><span style="font-size: 15px;">待执行完后，会生成 gradle 目录， 如果此时 Jar 包没有下载成功的话，可以从网盘下载后，切换到 gradle/wrapper 目录，将 Jar 包复制到该目录。</span></p><p><br></p><p>       <img src="https://article-images.zsxq.com/FnOvjLo7YDgjk1M_WajKUhmi2Gsw"></p><p><br></p><p><img src="https://article-images.zsxq.com/Fnwezo_w19cMC0w1CvVG65e5T34s"></p><p><br></p><div class="ql-code-block-container"><div class="ql-code-block"><span class="ql-token hljs-comment"># 进入 kafka 目录执行</span></div><div class="ql-code-block">./gradlew jar  <span class="ql-token hljs-comment">#构建jar包,执行时间比较长,耐心等待</span></div><div class="ql-code-block">./gradlew idea <span class="ql-token hljs-comment">#把 Kafka 源码导入到idea中,执行时间比较长,耐心等待</span></div><div class="ql-code-block">./gradlew eclipse <span class="ql-token hljs-comment">#如果是使用的eclipse,可以执行此命令</span></div></div><p><br></p><p><img src="https://article-images.zsxq.com/FmVc4el1-TwBkRitQitBa_zwxOIr"></p><p><br></p><p><img src="https://article-images.zsxq.com/FjIBYqr-PUGDfGtH76_WLYPubS5K"></p><p><br></p><p><span style="font-size: 15px;">待执行完后,最后通过 IDEA 导入安装好的 Kafka 源码，如下：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/Fn-Fx2K-GwCqVQ9gMHPTl6p6oFiX"></p><p><img src="https://article-images.zsxq.com/FviiPtOi9ZcR_d215Mkt6cA4a3Nv"></p><p><br></p><p><span style="font-size: 15px;">至此，IDEA Kafka 源码环境已经安装完成。</span></p><p><br></p><h1><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">03 Kafka 源码全景图</strong></h1><p><br></p><p><span style="font-size: 15px;">上面聊完 Kafka 源码安装环境，接下来我们先来聊聊 Kafka 源码的一个全景图，看看Kafka 都包括哪些核心模块，如下图所示：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/FoUL4G2ub8yByMzsbV0usLcMIzq8"></p><p><br></p><p><span style="font-size: 15px;">从功能上讲，Kafka 源码可以分为五大模块：</span></p><p><br></p><blockquote><div class="blockquote-item ql-align-justify">1）服务端源码：实现 Kafka Broker 核心功能模块，包括日志存储、控制器、协调器、元数据管理及状态机管理、延迟机制、消费者组管理、高并发网络架构模型实现等。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">2）Java 客户端源码：实现了 Producer、Consumer 与 Broker 交互机制以及通用组件支撑代码。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">3）Connect 源码：用来构建异构数据双向流式同步服务。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">4）Stream 源码：用来实现实时流处理相关功能。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">5）Raft 源码：raft 一致性协议实现。</div></blockquote><p><br></p><p><br></p><p><span style="font-size: 15px;">由此可见</span>，<span style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34); font-size: 15px;">「</span><strong style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(255, 104, 39);">服务端源码</strong><span style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34); font-size: 15px;">」是理解 Kafka 底层存储架构和集群运行原理的核心，也是很多线上问题频发的「</span><strong style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(255, 104, 39);">重灾区</strong><span style="background-color: rgb(255, 255, 255); color: rgb(34, 34, 34); font-size: 15px;">」。而客户端主要是跟服务端进行交互生产和消费数据，所以「</span><strong style="font-size: 15px; color: rgb(255, 104, 39); background-color: rgb(255, 255, 255);">服务端源码</strong><span style="color: rgb(34, 34, 34); font-size: 15px; background-color: rgb(255, 255, 255);">」和 「</span><strong style="background-color: rgb(255, 255, 255); color: rgb(255, 76, 0); font-size: 15px;">客户端源码</strong><span style="color: rgb(34, 34, 34); font-size: 15px; background-color: rgb(255, 255, 255);">」是 Kafka 实现最核心和精华的代码，也是我们深入研究的核心重点，因此</span><strong style="background-color: rgb(255, 255, 255); color: rgb(255, 104, 39); font-size: 15px;">本源码系列主要剖析客户端以及服务端相关源码实现，其他模块的实现后续有机会在进行剖析</strong><span style="background-color: rgb(255, 255, 255); color: rgb(255, 104, 39); font-size: 15px;">。</span></p><p><br></p><p><span style="font-size: 15px;">接下来我们分别来看看服务端源码和客户端源码的全景图以及我们分析的源码重点。</span></p><p><br></p><h2><strong style="color: rgb(234, 84, 41); background-color: rgb(255, 255, 255);">01 Kafka 生产端源码全景图</strong></h2><p><br></p><p><span style="font-size: 15px;">从生产者端来说，我们可以学习到 Kafka Producer 是如何进行初始化; 集群元数据如何拉取、加载、更新; 又是如何通过 Java NIO 设计客户端网络通信模块的，以及如何通过缓存、异步、批量、内存池等设计保证消息在生产过程中的高性能和可靠性的。</span></p><p><br></p><p><span style="font-size: 15px;">对于不了解 Producer 的读者们，可以查看</span><span style="color: rgb(78, 89, 105); background-color: rgb(255, 255, 255); font-size: 15px;"> </span><strong style="font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(58, 187, 136);"><a href="http://mp.weixin.qq.com/s?__biz=Mzg3MTcxMDgxNA==&amp;mid=2247488849&amp;idx=1&amp;sn=febda095589f02553d9191528f271c07&amp;chksm=cefb3c60f98cb576fd9c58d760b9a5e4ae32a0c001e2049b591297d904a0401646448999c78a&amp;scene=21#wechat_redirect" target="_blank">聊聊 Kafka Producer 那点事</a></strong></p><p><br></p><p><span style="font-size: 15px;">我把整个生产端源码按照功能分为5大模块</span><span style="background-color: rgb(255, 255, 255); font-size: 15px;">，每个模块会进一步的划分出一些子部分, 详细给出了各个组件级的源码分析, 你可以看下面这张</span><span style="font-size: 15px;">全景图的重点介绍：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/Fv53Czi3kYoxLIiW4KaID6vZEC5p"></p><p><br></p><p><br></p><h2><strong style="color: rgb(234, 84, 41); background-color: rgb(255, 255, 255);">02 Kafka 服务端源码全景图</strong></h2><p><br></p><p><span style="font-size: 15px;">从服务端来说，我们可以学习到 Kafka 服务端是如何管理和存储日志的，以及分区和副本是如何设计和实现的。</span></p><p><br></p><p><span style="font-size: 15px;">我把整个服务端源码按照功能分为5大模块</span><span style="background-color: rgb(255, 255, 255); font-size: 15px;">，每个模块会进一步的划分出一些子部分, 详细给出了各个组件级的源码分析, 你可以看下面这张</span><span style="font-size: 15px;">全景图的重点介绍：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/FsMOgu9HBKSPvhQ9-ls4qsNkNlIY"></p><p><br></p><h2><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">03 Kafka 消费端源码全景图</strong></h2><p><br></p><p><span style="font-size: 15px;">从消费者来说，我们可以学习到 Kafka consumer 初始化流程，组协调者机制，如何跟服务端进行通信，以及消费组如何实现消费的重平衡的。</span></p><p><br></p><p><span style="font-size: 15px; background-color: rgb(255, 255, 255);">对于不了解 Consumer 的读者们，可以先看看 </span><strong style="font-size: 15px; background-color: rgb(255, 255, 255); color: rgb(58, 187, 136);"><a href="https://articles.zsxq.com/id_xqh2l0kkhc7a.html" target="_blank">聊聊 Kafka Consumer 那点事</a></strong></p><p><br></p><p><span style="font-size: 15px;">我把整个消费端源码按照功能分为6大模块</span><span style="background-color: rgb(255, 255, 255); font-size: 15px;">，每个模块会进一步的划分出一些子部分, 详细给出了各个组件级的源码分析, 你可以看下面这张</span><span style="font-size: 15px;">全景图的重点介绍：</span></p><p><br></p><p><img src="https://article-images.zsxq.com/FjBfJDdsBrbbbYd9zjsUjuJLPi9N"></p><p><br></p><h1><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">04 Kafka 源码之旅路线</strong></h1><p><br></p><p><span style="font-size: 15px;">上面聊完 Kafka 源码全景图后，接下来我们聊聊如何高效的阅读源码。由于 Kafka 源码大概有50多万行，如果一头扎进去的话，就会出现深陷源码之中而无法自拔。</span></p><p><br></p><p><span style="font-size: 15px;">我们此系列是按照</span><span style="background-color: rgb(255, 255, 255);">「</span><strong style="color: rgb(255, 104, 39); font-size: 15px; background-color: rgb(255, 255, 255);">场景驱动</strong><span style="background-color: rgb(255, 255, 255);">」</span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">的方式带你一步步深度剖析，</span><span style="background-color: rgb(255, 255, 255);"> </span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">即</span><span style="background-color: rgb(255, 255, 255);">「</span><strong style="color: rgb(255, 104, 39); font-size: 15px;">从一条消息生产发送开始逐步探索 Kafka 的运行全流程</strong><span style="font-size: 15px; background-color: rgb(255, 255, 255);">」</span><span style="font-size: 15px;">。</span></p><p><br></p><p><span style="font-size: 15px;">因此并不是上来就先从</span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">「</span><strong style="color: rgb(255, 104, 39); font-size: 15px;">服务端 Broker 源码</strong><span style="font-size: 15px; background-color: rgb(255, 255, 255);">」</span><span style="font-size: 15px;">开始入手进行探索和剖析</span><span style="background-color: rgb(255, 255, 255); font-size: 15px;">，</span><span style="font-size: 15px;">我们会从一条消息发送出去,  首先是</span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">「</span><strong style="color: rgb(255, 104, 39); font-size: 15px;">生产端的源码运行的全流程</strong><span style="font-size: 15px; background-color: rgb(255, 255, 255);">」，</span><span style="font-size: 15px;">最核心的是四大块：</span></p><p><br></p><blockquote><div class="blockquote-item ql-align-justify">1）NIO 网络通信模块：带你深度剖析下 Kafka 是如何基于Java NIO 实现一套工业生产级的网络底层通信模块的, 非常经典。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">2）内存缓冲池设计：带你深度剖析下 Kafka 客户端是如何设计一套支撑百万并发的高吞吐量的缓冲机制的, 非常经典。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">3）Sender发送线程：这是我们剖析的重点的重点，必须要搞清楚 Kafka 客户端是如何通过网络通信把一批批消息发送到 Kafka Broker 端上去的，这里涉及到很多网络通信的细节，一些参数设置，应对网络故障的时候是如何进行处理的？非常经典。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">4）集群元数据拉取和更新机制：带你深度剖析下集群元数据拉取组件以及拉取时机；元数据如何在客户端缓存的；如何对Topic元数据支持细粒度的按需加载和同步等待。</div></blockquote><p><br></p><p><span style="font-size: 15px; background-color: rgb(255, 255, 255);">此时消息已经被送达 Kafka Broker 端上去了, 这是我们学习的重点的重点。了解「</span><strong style="font-size: 15px; color: rgb(255, 104, 39); background-color: rgb(255, 255, 255);">服务端的源码运行的全流程</strong><span style="font-size: 15px; background-color: rgb(255, 255, 255);">」，最核心的是五大块：</span></p><p><br></p><blockquote><div class="blockquote-item ql-align-justify">1）集群架构：带你深度剖析下 Kafka Broker 的集群架构是如何实现的；各个 Broker启动起来后是如何组成一个集群的；集群的 Controller 是如何被选举出来的；故障恢复高可用架构方式是如何实现的等等。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">2）服务端网络通信模块：带你深度剖析下 Kafka 服务端网络通信模块是如何实现的、了解 Reactor 设计模型以及 Kafka 基于 Reactor 实现的支撑超高并发的网络架构、深度剖析 Acceptor 线程、Processor 线程、RequestChannel、IO线程池等网络底层通信组件实现以及请求处理全流程源码。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">3）分区与副本：带你深度剖析多副本冗余以及高可用架构如何实现；Leader 和 Follower 数据如何同步、副本如何传输、之间的HW和LEO如何变更；Leader 所在 Broker 故障宕机后， 如何保证系统高可用；副本管理器如何管理副本；Broker是如何异步更新元数据缓存的等等。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">4）负载均衡与伸缩架构：带你深度剖析如何保证数据均衡的分布在集群的 Broker 机器上的；如何进行 Topic 的 Partition 的扩缩容以及 Broker 的扩缩容。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">5）日志存储架构：带你深度剖析 Kafka 是如何高效存储的；磁盘读写是如何实现的；日志的存储结构是怎样的；如何利用 OS Cache、零拷贝、稀疏索引、顺序写等优秀设计来支撑超高吞吐量的存储架构的。</div></blockquote><p class="ql-align-justify"><br></p><p class="ql-align-justify"><br></p><p><span style="font-size: 15px;">待数据存储到 Broker 端上后，就可以启动消费者去消费数据了， 这时我们需要了解</span><span style="background-color: rgb(255, 255, 255); font-size: 15px;">「</span><strong style="font-size: 15px; color: rgb(255, 104, 39); background-color: rgb(255, 255, 255);">消费端的源码运行的全流程</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px;">」</span><span style="font-size: 15px;">，最核心的六大块：</span></p><p><br></p><blockquote><div class="blockquote-item ql-align-justify">1）消费流程：带你深度剖析消费端是如何初始化的；如何与服务端进行通信的；Consumer 的 poll() 方法是如何进行数据消费的。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">2）消费者组管理：带你深度剖析Consumer Group 概念、状态机流转；Consumer启动后是如何加入到 Group 的；Consumer Group 管理全流程；Consumer Group 元数据管理设计原理等等。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">3）Coordinator 机制：带你深度剖析Consumer Coordinator 工作原理；Consumer Coordinator 是如何选举出来 Consumer Leader 的；Consumer Leader 如何制定分区分配方案；Consumer Coordinator 又是如何下发分区分配方案的； 以及 Consumer 是如何定时发送心跳给 Consumer Coordinator 的等等。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">4）消息重平衡机制：带你深度剖析几种重平衡场景；以及重平衡源码流程分析。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">5）__consumer_offsets：带你深度探秘其内幕以及存储结构。</div><div class="blockquote-item ql-align-justify"><br></div><div class="blockquote-item ql-align-justify">6）订阅状态与Offset操作：带你深度剖析消费端订阅状态是如何保存和追踪Topic Partition 和 Offset 的对应关系；以及了解 Offset 如何获取以及提交方式等等。</div></blockquote><p><br></p><p><span style="font-size: 15px;">至此一条消息从生产、存储、消费的整个流程就已经完毕了， </span><span style="font-size: 15px; background-color: rgb(255, 255, 255);">通过「</span><strong style="color: rgb(255, 104, 39); font-size: 15px;">掌握一种科学的阅读源码的方式--用高效的方式，读最核心的源码</strong><span style="font-size: 15px; background-color: rgb(255, 255, 255);">」让你真正掌握 Kafka 底层实现原理，在遇到线上故障时可以游刃有余，快速定位</span><span style="background-color: rgb(255, 255, 255); color: rgb(78, 89, 105);">。</span></p><p><br></p><h1><strong style="background-color: rgb(255, 255, 255); color: rgb(234, 84, 41);">05 总结</strong></h1><p><br></p><p><br></p><p>这里，我们一起来总结一下这篇文章的重点。</p><p><br></p><p>1、从零带你搭建 Kafka 源码环境：<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">版本说明</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>、<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">环境准备</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>、<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">环境搭建</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>。</p><p><br></p><p>2、带你梳理了<span style="color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 104, 39);">Kafka 源码全景图</strong><span style="color: rgb(53, 53, 53);">」所包含</span>的核心模块分布，也分别梳理了<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">服务端</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>、<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">生产端</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>、<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">消费端</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span> 三端核心源码功能模块。</p><p><br></p><p>3、梳理完源码全景图后，又带你剖析我们<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 76, 0);">源码系列分享的整体思路</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>，从<span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">「</span><strong style="color: rgb(255, 104, 39);">场景驱动方式</strong><span style="background-color: rgb(255, 255, 255); font-size: 15px; color: rgb(53, 53, 53);">」</span>入手，带你一步步深度剖析<span style="background-color: rgb(255, 255, 255); font-size: 15px;">数据流转的</span>整个过程的核心源码实现，从而让你<span style="font-size: 15px;">深入理解 Kafka 底层原理，掌握源码的高效阅读方法，快速定位线上问题并制定调优方案</span>。</p></div>
+    </div>
+    <footer>
+        <div class="horizon-line"></div>
+        <img id="logo" src="/assets_dweb/logo@1x.png">
+        <div class="text">知识星球</div>
+        <div class="horizon-line"></div>
+    </footer>
+    <div class="qrcode-container">
+        <img class="qrcode" id="qrcode">
+        <div class="text-desc">扫码加入星球</div>
+        <div class="text-desc">查看更多优质内容</div>
+    </div>
+    <div id="qrcode-url">https://wx.zsxq.com/mweb/views/joingroup/join_group.html?group_id=51122554151214</div>
+    <input type="hidden" name="group_allow_copy" value="false" />
+    <input type="hidden" name="group_enable_watermark" value="true" />
+    <input type="hidden" name="member_id" value="422111145528858" />
+    <input type="hidden" name="member_name" value="锴" />
+    <input type="hidden" name="member_role" value="other" />
+</div>
+<div class="message-container-overlay">
+</div>
+<script src="/js/jr-qrcode.js"></script>
+<script src="/js/content-protection.js"></script>
+<script src="/js/article_dweb.js"></script>
+</body>
+</html>
